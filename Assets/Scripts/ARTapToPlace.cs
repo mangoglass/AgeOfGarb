@@ -8,14 +8,29 @@ using System;
 
 public class ARTapToPlace : MonoBehaviour
 {
+
+    //Gameobjects
     public GameObject placementIndicator;
     public GameObject objectToPlace;
+    private GameObject sceneInstance;
 
+
+    //AR managers
     private ARSessionOrigin arOrigin;
     private ARRaycastManager arRaycast;
+    private ARPlaneManager arPlanes;
+    private ARPointCloudManager arCloud;
 
+    //Placement
+    private ARPlane placementPlane;
     private Pose placementPose;
     private bool placementPoseIsValid = false;
+    private float scale;
+
+
+    //setup scene?
+    private bool init = true;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -23,26 +38,68 @@ public class ARTapToPlace : MonoBehaviour
         Application.targetFrameRate = 60; //Set framerate to 60hz. This improves plane detection in my experience. 
         arOrigin = FindObjectOfType<ARSessionOrigin>();
         arRaycast = arOrigin.GetComponent<ARRaycastManager>();
+        arPlanes = arOrigin.GetComponent<ARPlaneManager>();
+        arCloud = arOrigin.GetComponent<ARPointCloudManager>();
+ 
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdatePlacementPose();
-        UpdatePlacementIndicator();
-
-        
-        if(placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (init)
         {
-            //place object on touch if our indicator is in a valid position. 
-            PlaceObject();
+            UpdatePlacementPose();
+            UpdatePlacementIndicator();
         }
-
+        
+  
     }
 
-    private void PlaceObject()
+    public void Restart()
     {
-        Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
+        Destroy(sceneInstance);
+        arPlanes.enabled = true;
+        arCloud.enabled = true;
+        init = true;
+        Camera.main.GetComponent<CamScript>().enabled = false; //
+    }
+
+
+    public void PlaceScene()
+    {
+
+        //Create the level at this point in space. 
+        if (placementPoseIsValid)
+        {
+            //Instantiate the prefab
+            sceneInstance = Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
+            sceneInstance.transform.localScale = new Vector3(scale, scale, scale);
+
+            //Disable new plane detection from now on. 
+            arPlanes.enabled = false;
+            //Remove the debug planes
+            foreach (var plane in arPlanes.trackables)
+            {
+                plane.gameObject.SetActive(false);
+            }
+            //Also disable the point cloud (which is just for fun anyway)
+            arCloud.enabled = false;
+            foreach (var point in arCloud.trackables)
+            {
+               point.gameObject.SetActive(false);
+            }
+
+            //remove the placementindicator
+            placementIndicator.SetActive(false);
+
+           
+            init = false;
+
+
+            //Start the shooting
+            Camera.main.GetComponent<CamScript>().enabled = true; //
+
+        }
     }
 
     private void UpdatePlacementIndicator()
@@ -51,8 +108,12 @@ public class ARTapToPlace : MonoBehaviour
         {
             placementIndicator.SetActive(true);
             placementIndicator.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
-          
 
+
+            //get the shortest distance to the border of the plane and use that as a scale. 
+            Vector2 extents = placementPlane.extents;
+            scale = Mathf.Min(new float[] { extents.x, extents.y });
+            placementIndicator.transform.localScale = new Vector3(scale, scale, scale);
         }
         else
         {
@@ -70,13 +131,17 @@ public class ARTapToPlace : MonoBehaviour
         placementPoseIsValid = hits.Count > 0;
         if (placementPoseIsValid)
         {
-            placementPose = hits[0].pose;
+            var trackId = hits[0].trackableId;
+
+            placementPlane = arPlanes.GetPlane(trackId);
+
+            placementPose.position = placementPlane.center;
 
 
             //Set rotation of indicator to follow phones forward. 
             var cameraForward = Camera.current.transform.forward;
             var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
-            placementPose.rotation = Quaternion.LookRotation(cameraBearing);
+            placementPose.rotation = Quaternion.LookRotation(cameraBearing); //Maybe rotated according to the planes normal? 
         }
     }
 }
