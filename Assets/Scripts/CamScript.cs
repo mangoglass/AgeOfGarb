@@ -6,6 +6,11 @@ public class CamScript : MonoBehaviour
 {
     private Camera cam;
     public GameObject projectileClass;
+    [SerializeField]
+    private float spawnOffset = 0.1f;
+    [SerializeField]
+    private float projectileForce = 20f;
+   
 
     // Start is called before the first frame update
     void Start()
@@ -21,18 +26,18 @@ public class CamScript : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
-                GameObject projectile = Instantiate(projectileClass, cam.transform.position + (cam.transform.forward), cam.transform.rotation);
+                GameObject projectile = Instantiate(projectileClass, cam.transform.position + (cam.transform.forward * spawnOffset), cam.transform.rotation);
                 Rigidbody rb = projectile.GetComponent<Rigidbody>();
-                rb.AddForce(cam.transform.forward * 20f, ForceMode.Impulse);
+                rb.AddForce(cam.transform.forward * projectileForce, ForceMode.Impulse);
             }    
         }
 
         // This part is only used for quick dev testing on PC
         if (Input.GetButtonDown("Fire1"))
         {
-            GameObject projectile = Instantiate(projectileClass, cam.transform.position + (cam.transform.forward), cam.transform.rotation);
+            GameObject projectile = Instantiate(projectileClass, cam.transform.position + (cam.transform.forward * spawnOffset), cam.transform.rotation);
             Rigidbody rb = projectile.GetComponent<Rigidbody>();
-            rb.AddForce(cam.transform.forward * 20f, ForceMode.Impulse);
+            rb.AddForce(cam.transform.forward * projectileForce, ForceMode.Impulse);
         }
     }
 }

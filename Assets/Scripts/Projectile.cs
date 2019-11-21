@@ -9,10 +9,14 @@ public class Projectile : MonoBehaviour
     private Rigidbody rb;
     private RaycastHit hit;
     private Color projColor;
+    private Vector3 oldPos;
+    [SerializeField]
+    private float rayLength = 0.1f;
 
     void Awake()
     {
         Destroy(gameObject, 10f);
+        oldPos = transform.position;
     }
 
     // Start is called before the first frame update
@@ -27,8 +31,14 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Physics.Raycast(transform.position, rb.velocity.normalized, out hit, collider.radius + 0.1f))
+        Vector3 diff = transform.position - oldPos;
+        if (Physics.Raycast(transform.position, diff.normalized, out hit, diff.magnitude))
         {
+            /*if (hit.transform.gameObject.layer == LayerMask.NameToLayer("NPC"))
+            {
+                hit.collider.gameObject.GetComponent<NPCController>().HitNpc();
+            }*/
+
             Quaternion decalRotation = Quaternion.LookRotation(hit.normal);
             float randomZRot = Random.Range(0f, 360f);
             decalRotation *= Quaternion.Euler(0f, 180f, randomZRot);
@@ -39,6 +49,8 @@ public class Projectile : MonoBehaviour
             print(hit.transform.gameObject.name);
             Destroy(gameObject);
         }
+
+        oldPos = transform.position;
     }
 
 }
