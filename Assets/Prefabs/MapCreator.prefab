@@ -51,4 +51,5 @@ MonoBehaviour:
   - {fileID: 129346, guid: c50789636e1fc5c4b8a37e2700e4a3c1, type: 3}
   - {fileID: 189882, guid: ee6af68a3d2c1864ebc6cfc3be82d851, type: 3}
   - {fileID: 129346, guid: c50789636e1fc5c4b8a37e2700e4a3c1, type: 3}
+  grassTile: {fileID: 195558, guid: 7b30b5ba44201104fba4e71a527b6905, type: 3}
   temporary: {fileID: 3053944640912417947}
