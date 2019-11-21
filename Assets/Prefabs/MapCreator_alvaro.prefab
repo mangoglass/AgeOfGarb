@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 418326759923405214}
   - component: {fileID: 1417369277}
   - component: {fileID: 1169760598}
+  - component: {fileID: 1817235130909188322}
   m_Layer: 0
   m_Name: MapCreator_alvaro
   m_TagString: Untagged
@@ -40,7 +41,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 418326759923405184}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f586bfd3b557748bd94d6dbf386a093a, type: 3}
   m_Name: 
@@ -101,3 +102,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcPrefab: {fileID: 2796980985458859628, guid: 7c8a73f95c5161a44b63e27bc4f21411,
     type: 3}
+--- !u!114 &1817235130909188322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418326759923405184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdfa33c36b7ffa49a08e6a8cd2d6d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildings:
+  - {fileID: 151176, guid: c498c5a0f7820b142b3b929366f2cf35, type: 3}
+  - {fileID: 198584, guid: f9c5e344bb1131f4f83e34b3f8cae927, type: 3}
+  - {fileID: 182348, guid: a2d22ce70dfdb254e9cf1a761853209a, type: 3}
+  trees:
+  - {fileID: 129346, guid: c50789636e1fc5c4b8a37e2700e4a3c1, type: 3}
+  - {fileID: 189882, guid: ee6af68a3d2c1864ebc6cfc3be82d851, type: 3}
+  - {fileID: 129346, guid: c50789636e1fc5c4b8a37e2700e4a3c1, type: 3}
+  groundPrefab: {fileID: 8496638967422118110, guid: 50926347cc61e7141a363a831f5eca8b,
+    type: 3}
+  trashCans:
+  - {fileID: 188538, guid: f738f6acdbb1d5844bd657732cb05e13, type: 3}
+  spawnProbability: 0.5
