@@ -102,7 +102,7 @@ public class MapCreator : MonoBehaviour
             trashCanPositions.Add(trashCan.transform);
         }
     }
-
+    
     private void CreateGround(Vector3[] points, Transform parent)
     {
         if (points.Length == 4)
@@ -117,8 +117,7 @@ public class MapCreator : MonoBehaviour
             ground.GetComponent<MeshCollider>().sharedMesh = mesh;
         }
     }
-
-
+    
     void CreateCloudsInSquare(Vector3 a, Vector3 b, int n, GameObject parent)
     {
         Vector3 diff = (b - a);
@@ -149,17 +148,39 @@ public class MapCreator : MonoBehaviour
         float xRange = diff.x;
         float zRange = diff.z;
 
-        for (int i = 0; i < n; i++) {
-            float xf = Random.Range(0f, 1f);
-            float zf = Random.Range(0f, 1f);
+        float n_cells = Mathf.Floor(Mathf.Sqrt(n));
+        float x_step = xRange / n_cells;
+        float z_step = zRange / n_cells;
 
-            Vector3 pos = a + new Vector3(xf * xRange, 0, zf * zRange);
-            //CreateTree(pos, Quaternion.identity, scale,parent);
-            CreateObject(trees, pos, Quaternion.identity, scale, parent);
+        for (int x = 0; x < n_cells; x++)
+        {
+            for (int z = 0; z < n_cells; z++)
+            {
+                int n_trees = Mathf.FloorToInt(Mathf.Sqrt(Random.Range(0, 20)));
 
-            //Vector3 pos = a + new Vector3(newAxisX * xRange, 0, newAxisZ * zRange);
-
+                for (int i = 0; i < n_trees; i++)
+                {
+                    float xf = Random.Range(0f, 1f);
+                    float zf = Random.Range(0f, 1f);
+                    Vector3 pos = a + new Vector3((x + xf) * x_step, 0, (z + zf) * z_step);
+                    CreateObject(trees, pos, Quaternion.identity, scale, parent);
+                }
+            }
         }
+
+        //for (int i = 0; i < n; i++) {
+        //    float xf = Random.Range(0f, 1f);
+        //    float zf = Random.Range(0f, 1f);
+
+        //    Vector3 pos = a + new Vector3(xf * xRange, 0, zf * zRange);
+        //    //CreateTree(pos, Quaternion.identity, scale,parent);
+        //    CreateObject(trees, pos, Quaternion.identity, scale, parent);
+
+        //    //Vector3 pos = a + new Vector3(newAxisX * xRange, 0, newAxisZ * zRange);
+
+        //}
+
+
 
 
     }
@@ -187,7 +208,19 @@ public class MapCreator : MonoBehaviour
                 Vector3 newPos = points[i] + new Vector3(xStep * j, 0, zStep * j);
                 //Need to fix rotation
                 //CreateBuilding(newPos, Quaternion.identity, scale , parent);
-                GameObject newBuilding = CreateObject(buildings,newPos, Quaternion.identity, scale, parent);
+
+                Quaternion rot = Quaternion.identity;
+                if (Mathf.Abs(diff.x) < Mathf.Abs(diff.z))
+                {
+                    rot = Quaternion.Euler(0, 90, 0);
+                }
+
+
+                GameObject newBuilding = CreateObject(buildings,newPos, rot, scale, parent);
+                newBuilding.transform.localScale = new Vector3(
+                    Random.Range(0.9f, 1.2f),
+                    Random.Range(0.8f, 1.2f),
+                    1);
                 //TODO LÄGG TILL ALVAROS RANDOM SAK HÄR FÖR SPAWNPOINTS
                 if (Random.Range(0f, 1f) <= spawnProbability)
                 {
@@ -199,40 +232,6 @@ public class MapCreator : MonoBehaviour
         }
 
     }
-
-
-
-    //void CreateBuilding(Vector3 position, Quaternion rotation, float scale , GameObject parent)
-    //{
-    //    GameObject building = GetRandomFromList(buildings);
-    //    GameObject newBuilding = Instantiate(building, parent.transform);
-    //    //Instantiate(building, position, rotation);
-    //    newBuilding.transform.localRotation = rotation;
-    //    newBuilding.transform.localPosition = position;
-
-    //    newBuilding.transform.localScale = new Vector3(scale, scale, scale);
-    //}
-
-    //void CreateTree(Vector3 position, Quaternion rotation, float scale, GameObject parent)
-    //{
-    //    GameObject tree = GetRandomFromList(trees);
-    //    GameObject newTree = Instantiate(tree,parent.transform);
-    //    newTree.transform.localRotation = rotation;
-    //    newTree.transform.localPosition = position;
-
-    //    newTree.transform.localScale = new Vector3(scale, scale, scale);
-    //}
-
-    //void CreateCloud(Vector3 position, Quaternion rotation, float scale, GameObject parent)
-    //{
-    //    GameObject cloud = GetRandomFromList(clouds);
-    //    GameObject newCloud = Instantiate(cloud, parent.transform);
-    //    newCloud.transform.localRotation = rotation;
-    //    newCloud.transform.localPosition = position;
-
-    //    newCloud.transform.localScale = new Vector3(scale, scale, scale);
-    //}
-
 
     GameObject CreateObject(GameObject[] objects, Vector3 position, Quaternion rotation, float scale, GameObject parent)
     {
