@@ -15,7 +15,7 @@ public class NPCController : MonoBehaviour
     private float trashAcceleration = 10f;
 
     private Rigidbody trash_rb;
-    private int frameSkips = 10;
+    private int frameSkips = 8;
     private int currentFrame = 0;
     private Vector3 returnPoint;
     private bool hasTrash = true;
@@ -84,6 +84,7 @@ public class NPCController : MonoBehaviour
         isGoingHome = true;
         agent.SetDestination(returnPoint);
         agent.speed = returnSpeed;
+        agent.avoidancePriority = 99;
     }
 
     private void ThrowTrash()

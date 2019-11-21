@@ -36,10 +36,10 @@ public class MapCreator_alvaro : MonoBehaviour
         trashCanPositions = new List<Transform>();
 
         Vector3[] points = new Vector3[]{
-            new Vector3(-40,0,-40),
-            new Vector3(-40,0,40),
-            new Vector3(40,0,40),
-            new Vector3(40,0,-40),
+            new Vector3(-70,0,-40),
+            new Vector3(-70,0,40),
+            new Vector3(70,0,40),
+            new Vector3(70,0,-40),
 
         };
         CreateMap(points, gameObject);
@@ -113,6 +113,7 @@ public class MapCreator_alvaro : MonoBehaviour
             GameObject trashCan = Instantiate(trashCans[3], transform);
             trashCan.transform.position = new Vector3(18f, transform.position.y + 0.2f, -16f);
             trashCan.transform.localScale = new Vector3(3, 3, 3);
+            trashCan.transform.localRotation = Quaternion.Euler(0, -120, 0);
             // Viktigt att detta är med varje gång en trashcan skapas
             trashCanPositions.Add(trashCan.transform);
         }
@@ -148,7 +149,12 @@ public class MapCreator_alvaro : MonoBehaviour
             Vector3 a = points[i];
             Vector3 b = points[(i + 1) % points.Length];
 
+
             Vector3 diff = (b - a);
+            //Set building rotation to look towards the yard
+            Vector2 yardDir = Vector2.Perpendicular(new Vector2(diff.x, diff.z));
+            Quaternion newRotation = Quaternion.LookRotation(new Vector3(yardDir.x,0,yardDir.y), Vector3.up);
+
 
             //int n = Mathf.Min(Mathf.FloorToInt(diff.x / minDist), Mathf.FloorToInt(diff.z / minDist));
             int n = Mathf.FloorToInt(diff.magnitude / minDist);
@@ -161,7 +167,7 @@ public class MapCreator_alvaro : MonoBehaviour
             {
                 Vector3 newPos = points[i] + new Vector3(xStep * j, 0, zStep * j);
                 //Need to fix rotation
-                CreateBuilding(newPos, Quaternion.identity, scale, parent);
+                CreateBuilding(newPos, newRotation, scale, parent);
             }
 
 

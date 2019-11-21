@@ -42,12 +42,12 @@ public class NPCManager : MonoBehaviour
 
     private IEnumerator SpawnWaves()
     {
-        float timeBetweenWaves = 10f;
-        float timeBetweenNPCs = 4f;
-        const float timeBetweenWaves_Min = 2f;
+        float timeBetweenWaves = 4f;
+        float timeBetweenNPCs = 2;
+        const float timeBetweenWaves_Min = 0.2f;
         const float timeBetweenNPCs_Min = 0.1f;
         const float timeBetweenWaves_Decrement = 1f;
-        const float timeBetweenNPCs_Decrement = 0.5f;
+        const float timeBetweenNPCs_Decrement = 1;
         for (;;)
         {
             yield return StartCoroutine(SpawnNPCs(timeBetweenNPCs));
@@ -55,12 +55,12 @@ public class NPCManager : MonoBehaviour
 
             //Debug.Log("timeBetweenWaves: " + timeBetweenWaves);
             // This is the time between waves
-            if (timeBetweenWaves > timeBetweenWaves_Min)
+            if ((timeBetweenWaves - timeBetweenWaves_Decrement) > timeBetweenWaves_Min)
                 timeBetweenWaves -= timeBetweenWaves_Decrement;
             else
                 timeBetweenWaves = timeBetweenWaves_Min;
             // This is the time between spawning NPCs
-            if (timeBetweenNPCs > timeBetweenNPCs_Min)
+            if ((timeBetweenNPCs - timeBetweenNPCs_Decrement) > timeBetweenNPCs_Min)
                 timeBetweenNPCs -= timeBetweenNPCs_Decrement;
             else
                 timeBetweenNPCs = timeBetweenNPCs_Min;
