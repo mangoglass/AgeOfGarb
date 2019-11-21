@@ -96,7 +96,11 @@ public class ARTapToPlace : MonoBehaviour
             //Remove the debug planes
             foreach (var plane in arPlanes.trackables)
             {
-                plane.gameObject.SetActive(false);
+                if (plane != placementPlane)
+                {
+                    plane.gameObject.SetActive(false);
+                }
+                    
             }
             //Also disable the point cloud (which is just for fun anyway)
             arCloud.enabled = false;
