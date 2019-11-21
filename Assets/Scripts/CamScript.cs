@@ -11,7 +11,7 @@ public class CamScript : MonoBehaviour
     [SerializeField]
     private float spawnYOffset = -0.01f;
     [SerializeField]
-    private float projectileForce = 5f;
+    private float projectileForce = 0.015f;
    
 
     // Start is called before the first frame update

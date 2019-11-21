@@ -934,7 +934,7 @@ MonoBehaviour:
     type: 3}
   spawnZOffset: 0.1
   spawnYOffset: -0.01
-  projectileForce: 5
+  projectileForce: 0.015
 --- !u!1 &852179182
 GameObject:
   m_ObjectHideFlags: 0

@@ -219,7 +219,7 @@ MonoBehaviour:
   projectileClass: {fileID: 4744501655724683668, guid: 889313ca956cfe749b5474a58b8c26da,
     type: 3}
   spawnOffset: 0
-  projectileForce: 7
+  projectileForce: 0.015
 --- !u!1001 &1128159384
 PrefabInstance:
   m_ObjectHideFlags: 0

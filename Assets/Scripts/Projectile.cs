@@ -12,6 +12,8 @@ public class Projectile : MonoBehaviour
     private Vector3 oldPos;
     [SerializeField]
     private float rayLength = 0.1f;
+    [SerializeField]
+    private float gravityMultiplier = 0.0005f;
 
     void Awake()
     {
@@ -24,13 +26,15 @@ public class Projectile : MonoBehaviour
     {
         collider = GetComponent<SphereCollider>();
         rb = GetComponent<Rigidbody>();
-        projColor = Random.ColorHSV(0, 1, 1, 1, 0, 1);
+        projColor = Random.ColorHSV(0, 1, 1, 1, 1, 1);
         gameObject.GetComponent<Renderer>().material.color = projColor;
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+
         Vector3 diff = transform.position - oldPos;
         if (Physics.Raycast(transform.position, diff.normalized, out hit, diff.magnitude))
         {
@@ -42,7 +46,7 @@ public class Projectile : MonoBehaviour
             Quaternion decalRotation = Quaternion.LookRotation(hit.normal);
             float randomZRot = Random.Range(0f, 360f);
             decalRotation *= Quaternion.Euler(0f, 180f, randomZRot);
-            GameObject decalClone = Instantiate(decal, hit.point, decalRotation);
+            GameObject decalClone = Instantiate(decal, hit.point + hit.normal * 0.001f, decalRotation);
             MeshRenderer decalRenderer = decalClone.GetComponent<MeshRenderer>();
             decalRenderer.material.color = projColor;
             decalClone.transform.parent = hit.transform;
@@ -51,6 +55,11 @@ public class Projectile : MonoBehaviour
         }
 
         oldPos = transform.position;
+    }
+
+    void FixedUpdate() 
+    {
+        rb.AddForce(-Vector3.up * Physics.gravity.magnitude * gravityMultiplier);
     }
 
 }
