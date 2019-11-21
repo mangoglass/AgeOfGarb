@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -102,7 +102,7 @@ public class MapCreator : MonoBehaviour
             trashCanPositions.Add(trashCan.transform);
         }
     }
-
+    
     private void CreateGround(Vector3[] points, Transform parent)
     {
         if (points.Length == 4)
@@ -117,8 +117,7 @@ public class MapCreator : MonoBehaviour
             ground.GetComponent<MeshCollider>().sharedMesh = mesh;
         }
     }
-
-
+    
     void CreateCloudsInSquare(Vector3 a, Vector3 b, int n, GameObject parent)
     {
         Vector3 diff = (b - a);
@@ -233,40 +232,6 @@ public class MapCreator : MonoBehaviour
         }
 
     }
-
-
-
-    //void CreateBuilding(Vector3 position, Quaternion rotation, float scale , GameObject parent)
-    //{
-    //    GameObject building = GetRandomFromList(buildings);
-    //    GameObject newBuilding = Instantiate(building, parent.transform);
-    //    //Instantiate(building, position, rotation);
-    //    newBuilding.transform.localRotation = rotation;
-    //    newBuilding.transform.localPosition = position;
-
-    //    newBuilding.transform.localScale = new Vector3(scale, scale, scale);
-    //}
-
-    //void CreateTree(Vector3 position, Quaternion rotation, float scale, GameObject parent)
-    //{
-    //    GameObject tree = GetRandomFromList(trees);
-    //    GameObject newTree = Instantiate(tree,parent.transform);
-    //    newTree.transform.localRotation = rotation;
-    //    newTree.transform.localPosition = position;
-
-    //    newTree.transform.localScale = new Vector3(scale, scale, scale);
-    //}
-
-    //void CreateCloud(Vector3 position, Quaternion rotation, float scale, GameObject parent)
-    //{
-    //    GameObject cloud = GetRandomFromList(clouds);
-    //    GameObject newCloud = Instantiate(cloud, parent.transform);
-    //    newCloud.transform.localRotation = rotation;
-    //    newCloud.transform.localPosition = position;
-
-    //    newCloud.transform.localScale = new Vector3(scale, scale, scale);
-    //}
-
 
     GameObject CreateObject(GameObject[] objects, Vector3 position, Quaternion rotation, float scale, GameObject parent)
     {
