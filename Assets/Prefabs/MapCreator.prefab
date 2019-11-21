@@ -51,7 +51,7 @@ MonoBehaviour:
   - {fileID: 129346, guid: c50789636e1fc5c4b8a37e2700e4a3c1, type: 3}
   - {fileID: 189882, guid: ee6af68a3d2c1864ebc6cfc3be82d851, type: 3}
   - {fileID: 129346, guid: c50789636e1fc5c4b8a37e2700e4a3c1, type: 3}
-  groundPrefab: {fileID: 8496638967422118110, guid: 395bb6e50f7624005bc0b60c88ff96e9,
+  groundPrefab: {fileID: 8496638967422118110, guid: 50926347cc61e7141a363a831f5eca8b,
     type: 3}
   trashCans: []
   spawnProbability: 0.5

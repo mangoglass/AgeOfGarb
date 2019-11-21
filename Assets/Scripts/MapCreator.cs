@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-//[RequireComponent(typeof(NPCManager))]
-//[RequireComponent(typeof(NavMeshSurface))]
+[RequireComponent(typeof(NPCManager))]
+[RequireComponent(typeof(NavMeshSurface))]
 public class MapCreator : MonoBehaviour
 {
     [SerializeField]
@@ -21,8 +21,8 @@ public class MapCreator : MonoBehaviour
 
     private List<Transform> spawnPoints;
     private List<Transform> trashCanPositions;
-    //private NavMeshSurface surface;
-    //private NPCManager npcManager;
+    private NavMeshSurface surface;
+    private NPCManager npcManager;
     float minDist = 7f;
     float scale = 1f;
 
@@ -47,8 +47,8 @@ public class MapCreator : MonoBehaviour
         //CreateMap(points, temporary);
 
 
-        //surface = GetComponent<NavMeshSurface>();
-        //npcManager = GetComponent<NPCManager>();
+        surface = GetComponent<NavMeshSurface>();
+        npcManager = GetComponent<NPCManager>();
         spawnPoints = new List<Transform>();
         trashCanPositions = new List<Transform>();
 
@@ -58,7 +58,7 @@ public class MapCreator : MonoBehaviour
 
     private void InitializeNPCs()
     {
-        //npcManager.SetUp(spawnPoints.ToArray(), trashCanPositions.ToArray());
+        npcManager.SetUp(spawnPoints.ToArray(), trashCanPositions.ToArray());
     }
 
     public void CreateMap( GameObject parent)
@@ -83,7 +83,7 @@ public class MapCreator : MonoBehaviour
         CreateGround(points, parent.transform);
         CreateTrashCans(parent.transform);
         // UPDATE NAVMESH
-        //surface.BuildNavMesh();
+        surface.BuildNavMesh();
 
 
         InitializeNPCs();
@@ -95,9 +95,36 @@ public class MapCreator : MonoBehaviour
     {
         if (trashCans.Length > 0)
         {
-            GameObject trashCan = Instantiate(trashCans[0]);
-            trashCan.transform.position = new Vector3(0, transform.position.y + 0.463f, 0);
-            trashCan.transform.localScale = new Vector3(3, 3, 3);
+            GameObject trashCan = Instantiate(trashCans[0], transform);
+            trashCan.transform.position = new Vector3(-8f, transform.position.y + 1.26f, 10f);
+            trashCan.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            // Viktigt att detta är med varje gång en trashcan skapas
+            trashCanPositions.Add(trashCan.transform);
+        }
+
+        if (trashCans.Length > 1)
+        {
+            GameObject trashCan = Instantiate(trashCans[1], transform);
+            trashCan.transform.position = new Vector3(12f, transform.position.y + 0.463f, 13f);
+            trashCan.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            // Viktigt att detta är med varje gång en trashcan skapas
+            trashCanPositions.Add(trashCan.transform);
+        }
+
+        if (trashCans.Length > 2)
+        {
+            GameObject trashCan = Instantiate(trashCans[2], transform);
+            trashCan.transform.position = new Vector3(-11f, transform.position.y + 0.463f, -10f);
+            trashCan.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            // Viktigt att detta är med varje gång en trashcan skapas
+            trashCanPositions.Add(trashCan.transform);
+        }
+
+        if (trashCans.Length > 3)
+        {
+            GameObject trashCan = Instantiate(trashCans[3], transform);
+            trashCan.transform.position = new Vector3(18f, transform.position.y + 0.2f, -16f);
+            trashCan.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             // Viktigt att detta är med varje gång en trashcan skapas
             trashCanPositions.Add(trashCan.transform);
         }
