@@ -15,14 +15,14 @@ public class MapCreator : MonoBehaviour
     void Start()
     {
 
-        Vector3[] points = new Vector3[]{
-            new Vector3(-40,0,-40),
-            new Vector3(-40,0,40),
-            new Vector3(40,0,40),
-            new Vector3(40,0,-40),
+        //Vector3[] points = new Vector3[]{
+        //    new Vector3(-40,0,-40),
+        //    new Vector3(-40,0,40),
+        //    new Vector3(40,0,40),
+        //    new Vector3(40,0,-40),
 
-        };
-        CreateMap(points, temporary);
+        //};
+        //CreateMap(points, temporary);
        
     }
 
@@ -32,8 +32,14 @@ public class MapCreator : MonoBehaviour
 
     }
 
-    void CreateMap(Vector3[] points, GameObject parent)
+    public void CreateMap(GameObject parent)
     {
+
+        Vector3[] points = new Vector3[]{
+            new Vector3(-40,0,-40),
+            new Vector3(-40,0,40),
+            new Vector3(40,0,40),
+            new Vector3(40,0,-40), };
 
         CreateBuildingOutline(points, parent);
         CreateTreesInSquare(points[0] + new Vector3(minDist, 0, minDist), points[2] - new Vector3(minDist, 0, minDist), 40, parent);

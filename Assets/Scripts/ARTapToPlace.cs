@@ -28,6 +28,9 @@ public class ARTapToPlace : MonoBehaviour
     private float scale;
 
 
+    GameObject resetButton;
+    GameObject placeButton;
+
     //setup scene?
     private bool init = true;
     
@@ -40,7 +43,12 @@ public class ARTapToPlace : MonoBehaviour
         arRaycast = arOrigin.GetComponent<ARRaycastManager>();
         arPlanes = arOrigin.GetComponent<ARPlaneManager>();
         arCloud = arOrigin.GetComponent<ARPointCloudManager>();
- 
+
+
+
+        placeButton = GameObject.Find("PlaceScene");
+        resetButton = GameObject.Find("Reset");
+        resetButton.SetActive(false);
     }
 
     // Update is called once per frame
@@ -57,6 +65,11 @@ public class ARTapToPlace : MonoBehaviour
 
     public void Restart()
     {
+
+
+
+        placeButton.SetActive(true);
+        resetButton.SetActive(false);
         Destroy(sceneInstance);
         arPlanes.enabled = true;
         arCloud.enabled = true;
@@ -69,11 +82,14 @@ public class ARTapToPlace : MonoBehaviour
     {
 
         //Create the level at this point in space. 
-        if (placementPoseIsValid)
+        if (placementPoseIsValid && sceneInstance == null)
         {
             //Instantiate the prefab
             sceneInstance = Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
-            sceneInstance.transform.localScale = new Vector3(scale, scale, scale);
+            sceneInstance.transform.localScale = new Vector3(scale*0.012f, scale*0.012f, scale*0.012f);
+
+            MapCreator mc = GetComponentInChildren<MapCreator>();
+            mc.CreateMap(sceneInstance);
 
             //Disable new plane detection from now on. 
             arPlanes.enabled = false;
@@ -95,6 +111,10 @@ public class ARTapToPlace : MonoBehaviour
            
             init = false;
 
+
+          
+            placeButton.SetActive(false);
+            resetButton.SetActive(true);
 
             //Start the shooting
             Camera.main.GetComponent<CamScript>().enabled = true; //
