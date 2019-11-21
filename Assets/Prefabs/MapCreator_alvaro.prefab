@@ -10,10 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 418326759923405185}
   - component: {fileID: 418326759923405214}
+  - component: {fileID: 1417369277}
+  - component: {fileID: 1169760598}
   m_Layer: 0
-  m_Name: MapCreator 1
+  m_Name: MapCreator_alvaro
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -51,4 +53,51 @@ MonoBehaviour:
   - {fileID: 129346, guid: c50789636e1fc5c4b8a37e2700e4a3c1, type: 3}
   - {fileID: 189882, guid: ee6af68a3d2c1864ebc6cfc3be82d851, type: 3}
   - {fileID: 129346, guid: c50789636e1fc5c4b8a37e2700e4a3c1, type: 3}
-  temporary: {fileID: 418326759923405184}
+  groundPrefab: {fileID: 8496638967422118110, guid: 50926347cc61e7141a363a831f5eca8b,
+    type: 3}
+  trashCans:
+  - {fileID: 188538, guid: f738f6acdbb1d5844bd657732cb05e13, type: 3}
+  spawnProbability: 0.363
+--- !u!114 &1417369277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418326759923405184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df27b9289d1e8c4fb82e0df4f4673ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 768
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_BuildHeightMesh: 0
+  m_NavMeshData: {fileID: 0}
+--- !u!114 &1169760598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418326759923405184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e20d8a911b6d2498da7ce9bb3f8b8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcPrefab: {fileID: 2796980985458859628, guid: 7c8a73f95c5161a44b63e27bc4f21411,
+    type: 3}
