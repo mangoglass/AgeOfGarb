@@ -745,7 +745,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 2.1e-44}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -932,7 +932,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileClass: {fileID: 4744501655724683668, guid: 889313ca956cfe749b5474a58b8c26da,
     type: 3}
-  spawnOffset: 0.1
+  spawnZOffset: 0.1
+  spawnYOffset: -0.01
   projectileForce: 0.015
 --- !u!1 &852179182
 GameObject:
