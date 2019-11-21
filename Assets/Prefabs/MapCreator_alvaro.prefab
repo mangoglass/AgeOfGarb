@@ -126,4 +126,7 @@ MonoBehaviour:
     type: 3}
   trashCans:
   - {fileID: 188538, guid: f738f6acdbb1d5844bd657732cb05e13, type: 3}
-  spawnProbability: 0.5
+  - {fileID: 122224, guid: 008c6febfb8d88a4496fe51f2a2d409a, type: 3}
+  - {fileID: 122224, guid: 008c6febfb8d88a4496fe51f2a2d409a, type: 3}
+  - {fileID: 182694, guid: e1cc26c508a6ec34e95a50f62aa7b3df, type: 3}
+  spawnProbability: 0.474

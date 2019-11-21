@@ -34,7 +34,7 @@ public class NPCManager : MonoBehaviour
             this.spawnPoints = spawnPoints;
             this.trashCans = trashCans;
             spawnInfos = new SpawnInfo[spawnPoints.Length];
-            //GetClosestTrashCans(); //TODO! Finish this!
+            GetClosestTrashCans();
 
             StartCoroutine(SpawnWaves());
         }
@@ -50,7 +50,7 @@ public class NPCManager : MonoBehaviour
         const float timeBetweenNPCs_Decrement = 0.5f;
         for (;;)
         {
-            StartCoroutine(SpawnNPCs(timeBetweenNPCs));
+            yield return StartCoroutine(SpawnNPCs(timeBetweenNPCs));
             yield return new WaitForSeconds(timeBetweenWaves);
 
             //Debug.Log("timeBetweenWaves: " + timeBetweenWaves);
@@ -72,13 +72,14 @@ public class NPCManager : MonoBehaviour
     {
         if (spawnPoints != null)
         {
-            foreach (Transform spawnPoint in spawnPoints)
+            foreach (SpawnInfo spawnInfo in spawnInfos)
             {
                 GameObject npc = Instantiate(npcPrefab);
-                npc.transform.position = spawnPoint.position;
-                npc.GetComponent<NavMeshAgent>().SetDestination(trashCans[0].position);
+                npc.transform.position = spawnInfo.spawnPoint.position;
+                npc.GetComponent<NavMeshAgent>().SetDestination(spawnInfo.closestTrashCan.position);
                 yield return new WaitForSeconds(waitTimeBetweenNPCs);
             }
+
         }
     }
 

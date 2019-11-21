@@ -83,8 +83,35 @@ public class MapCreator_alvaro : MonoBehaviour
     {
         if (trashCans.Length > 0)
         {
-            GameObject trashCan = Instantiate(trashCans[0]);
-            trashCan.transform.position = new Vector3(0, transform.position.y + 0.463f, 0);
+            GameObject trashCan = Instantiate(trashCans[0], transform);
+            trashCan.transform.position = new Vector3(-8f, transform.position.y + 1.26f, 10f);
+            trashCan.transform.localScale = new Vector3(3, 3, 3);
+            // Viktigt att detta är med varje gång en trashcan skapas
+            trashCanPositions.Add(trashCan.transform);
+        }
+
+        if (trashCans.Length > 1)
+        {
+            GameObject trashCan = Instantiate(trashCans[1],transform);
+            trashCan.transform.position = new Vector3(12f, transform.position.y + 0.463f, 13f);
+            trashCan.transform.localScale = new Vector3(3, 3, 3);
+            // Viktigt att detta är med varje gång en trashcan skapas
+            trashCanPositions.Add(trashCan.transform);
+        }
+
+        if (trashCans.Length > 2)
+        {
+            GameObject trashCan = Instantiate(trashCans[2], transform);
+            trashCan.transform.position = new Vector3(-11f, transform.position.y + 0.463f, -10f);
+            trashCan.transform.localScale = new Vector3(3, 3, 3);
+            // Viktigt att detta är med varje gång en trashcan skapas
+            trashCanPositions.Add(trashCan.transform);
+        }
+
+        if (trashCans.Length > 3)
+        {
+            GameObject trashCan = Instantiate(trashCans[3], transform);
+            trashCan.transform.position = new Vector3(18f, transform.position.y + 0.2f, -16f);
             trashCan.transform.localScale = new Vector3(3, 3, 3);
             // Viktigt att detta är med varje gång en trashcan skapas
             trashCanPositions.Add(trashCan.transform);
