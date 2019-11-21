@@ -13,7 +13,7 @@ public class Projectile : MonoBehaviour
     [SerializeField]
     private float rayLength = 0.1f;
     [SerializeField]
-    private float gravityMultiplier = 0.1f;
+    private float gravityMultiplier = 0.0005f;
 
     void Awake()
     {
