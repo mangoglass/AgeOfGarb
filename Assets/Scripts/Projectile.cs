@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour
     private SphereCollider collider;
     private Rigidbody rb;
     private RaycastHit hit;
+    private Color projColor;
 
     void Awake()
     {
@@ -19,6 +20,8 @@ public class Projectile : MonoBehaviour
     {
         collider = GetComponent<SphereCollider>();
         rb = GetComponent<Rigidbody>();
+        projColor = Random.ColorHSV(0, 1, 1, 1, 0, 1);
+        gameObject.GetComponent<Renderer>().material.color = projColor;
     }
 
     // Update is called once per frame
@@ -27,11 +30,13 @@ public class Projectile : MonoBehaviour
         if (Physics.Raycast(transform.position, rb.velocity.normalized, out hit, collider.radius + 0.1f))
         {
             Quaternion decalRotation = Quaternion.LookRotation(hit.normal);
-            decalRotation *= Quaternion.Euler(0, 180f, 0);
-            Instantiate(decal, hit.point, decalRotation);
+            float randomZRot = Random.Range(0f, 360f);
+            decalRotation *= Quaternion.Euler(0f, 180f, randomZRot);
+            GameObject decalClone = Instantiate(decal, hit.point, decalRotation);
+            MeshRenderer decalRenderer = decalClone.GetComponent<MeshRenderer>();
+            decalRenderer.material.color = projColor;
+            decalClone.transform.parent = hit.transform;
             print(hit.transform.gameObject.name);
-            Renderer otherRenderer = hit.transform.gameObject.GetComponent<Renderer>();
-            otherRenderer.material.SetColor("_Color", Color.red);
             Destroy(gameObject);
         }
     }
