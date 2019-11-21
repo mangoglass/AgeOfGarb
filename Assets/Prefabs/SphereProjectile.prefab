@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4744501655724683759}
   - component: {fileID: 4744501655724683752}
   - component: {fileID: 4744501655724683753}
-  - component: {fileID: 4744501655724683754}
   - component: {fileID: 4744501655724683755}
   - component: {fileID: -5084433019135785588}
+  - component: {fileID: -7801931694841598468}
   m_Layer: 0
   m_Name: SphereProjectile
   m_TagString: Untagged
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 4744501655724683668}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.0023, y: 0.85, z: -9.2167}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -81,19 +81,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &4744501655724683754
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4744501655724683668}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4744501655724683755
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -109,7 +96,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &-5084433019135785588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,3 +109,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a33bee41677bf40acb0aac6a5ca33e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  decal: {fileID: 2037422687595662364, guid: 7c27384ecd742644693948554ffb8d65, type: 3}
+  rayLength: 0.1
+--- !u!135 &-7801931694841598468
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4744501655724683668}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.49999997
+  m_Center: {x: 0, y: 0, z: 0}
