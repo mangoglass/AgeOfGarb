@@ -51,4 +51,13 @@ MonoBehaviour:
   - {fileID: 129346, guid: c50789636e1fc5c4b8a37e2700e4a3c1, type: 3}
   - {fileID: 189882, guid: ee6af68a3d2c1864ebc6cfc3be82d851, type: 3}
   - {fileID: 129346, guid: c50789636e1fc5c4b8a37e2700e4a3c1, type: 3}
+  groundPrefab: {fileID: 8496638967422118110, guid: 395bb6e50f7624005bc0b60c88ff96e9,
+    type: 3}
+  trashCans: []
+  spawnProbability: 0.5
   temporary: {fileID: 3053944640912417947}
+  grassTile: {fileID: 195558, guid: 7b30b5ba44201104fba4e71a527b6905, type: 3}
+  clouds:
+  - {fileID: 160532, guid: 142ea8d35ff76aa42bf5c81b59a31de3, type: 3}
+  - {fileID: 168864, guid: f2cc24a0516604f44b427b0abefb1b97, type: 3}
+  - {fileID: 184470, guid: 21dc6678a099fda4ea40fca98c3e710b, type: 3}
