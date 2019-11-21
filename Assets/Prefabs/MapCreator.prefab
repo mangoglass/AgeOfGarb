@@ -44,11 +44,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildings:
-  - {fileID: 151176, guid: c498c5a0f7820b142b3b929366f2cf35, type: 3}
-  - {fileID: 198584, guid: f9c5e344bb1131f4f83e34b3f8cae927, type: 3}
-  - {fileID: 182348, guid: a2d22ce70dfdb254e9cf1a761853209a, type: 3}
+  - {fileID: 4370698393190223691, guid: ee5e7c3fd2950455897f6a2d1832efe0, type: 3}
+  - {fileID: 6203741126335583443, guid: d24520cba3cbf46f78b370d123723642, type: 3}
+  - {fileID: 3751819278443266986, guid: 22b2e2118657b4114b5176449aded784, type: 3}
   trees:
   - {fileID: 129346, guid: c50789636e1fc5c4b8a37e2700e4a3c1, type: 3}
   - {fileID: 189882, guid: ee6af68a3d2c1864ebc6cfc3be82d851, type: 3}
   - {fileID: 129346, guid: c50789636e1fc5c4b8a37e2700e4a3c1, type: 3}
-  temporary: {fileID: 3053944640912417947}
+  groundPrefab: {fileID: 8496638967422118110, guid: 395bb6e50f7624005bc0b60c88ff96e9,
+    type: 3}
+  trashCans: []
+  spawnProbability: 0.5
+  temporary: {fileID: 0}
+  grassTile: {fileID: 195558, guid: 7b30b5ba44201104fba4e71a527b6905, type: 3}
+  clouds:
+  - {fileID: 160532, guid: 142ea8d35ff76aa42bf5c81b59a31de3, type: 3}
+  - {fileID: 168864, guid: f2cc24a0516604f44b427b0abefb1b97, type: 3}
+  - {fileID: 184470, guid: 21dc6678a099fda4ea40fca98c3e710b, type: 3}
