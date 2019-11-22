@@ -80,6 +80,7 @@ public class NPCManager : MonoBehaviour
             foreach (SpawnInfo spawnInfo in spawnInfos)
             {
                 GameObject npc = Instantiate(npcPrefab,parentObject);
+                Debug.Log(spawnInfo.spawnPoint.position);
                 npc.transform.position = spawnInfo.spawnPoint.position;
                 npc.GetComponent<NavMeshAgent>().SetDestination(spawnInfo.closestTrashCan.position);
                 yield return new WaitForSeconds(waitTimeBetweenNPCs);

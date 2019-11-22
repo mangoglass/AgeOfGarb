@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NPCManager))]
-[RequireComponent(typeof(NavMeshSurface))]
 public class MapCreator : MonoBehaviour
 {
     [SerializeField]
@@ -15,21 +14,18 @@ public class MapCreator : MonoBehaviour
     private GameObject groundPrefab;
     [SerializeField]
     private GameObject[] trashCans;
+    [SerializeField]
+    private GameObject surfacePrefab;
     [Range(0f, 1f)]
     [SerializeField]
     private float spawnProbability = 0.5f;
 
     private List<Transform> spawnPoints;
     private List<Transform> trashCanPositions;
-    private NavMeshSurface surface;
     private NPCManager npcManager;
     float minDist = 7f;
     float scale = 1f;
 
-    public GameObject temporary;
-
-
-    public GameObject grassTile;
 
     public GameObject[] clouds;
 
@@ -46,8 +42,6 @@ public class MapCreator : MonoBehaviour
         //};
         //CreateMap(points, temporary);
 
-
-        surface = GetComponent<NavMeshSurface>();
         npcManager = GetComponent<NPCManager>();
         spawnPoints = new List<Transform>();
         trashCanPositions = new List<Transform>();
@@ -69,21 +63,16 @@ public class MapCreator : MonoBehaviour
             new Vector3(40,0,40),
             new Vector3(40,0,-40), };
 
-
-
-        //GameObject newGT = Instantiate(grassTile, parent.transform);
-        //newGT.transform.localPosition = new Vector3(50f, 0, 50f);
-        //newGT.transform.localScale = new Vector3(21f, 1f, 21f);
-
-
         CreateBuildingOutline(points, parent);
         CreateTreesInSquare(points[0] + new Vector3(minDist, 0, minDist), points[2] - new Vector3(minDist, 0, minDist), 40, parent);
         CreateCloudsInSquare(points[0] - new Vector3(minDist, 0, minDist), points[2] + new Vector3(minDist, 0, minDist), 10, parent);
 
         CreateGround(points, parent.transform);
         CreateTrashCans(parent.transform);
+
         // UPDATE NAVMESH
-        surface.BuildNavMesh();
+        GameObject surface = Instantiate(surfacePrefab, parent.transform);
+        surface.GetComponent<NavMeshSurface>().BuildNavMesh();
 
 
         InitializeNPCs(parent.transform);
@@ -96,7 +85,7 @@ public class MapCreator : MonoBehaviour
         if (trashCans.Length > 0)
         {
             GameObject trashCan = Instantiate(trashCans[0], parent);
-            trashCan.transform.position = new Vector3(-8f, parent.position.y + 1.26f, 10f);
+            trashCan.transform.localPosition = new Vector3(-8f, parent.position.y + 1.26f, 10f);
             trashCan.transform.localScale = new Vector3(3f, 3f, 3f);
             // Viktigt att detta är med varje gång en trashcan skapas
             trashCanPositions.Add(trashCan.transform);
@@ -105,7 +94,7 @@ public class MapCreator : MonoBehaviour
         if (trashCans.Length > 1)
         {
             GameObject trashCan = Instantiate(trashCans[1], parent);
-            trashCan.transform.position = new Vector3(12f, parent.position.y + 0.463f, 13f);
+            trashCan.transform.localPosition = new Vector3(12f, parent.position.y + 0.463f, 13f);
             trashCan.transform.localScale = new Vector3(3f, 3f, 3f);
             // Viktigt att detta är med varje gång en trashcan skapas
             trashCanPositions.Add(trashCan.transform);
@@ -114,7 +103,7 @@ public class MapCreator : MonoBehaviour
         if (trashCans.Length > 2)
         {
             GameObject trashCan = Instantiate(trashCans[2], parent);
-            trashCan.transform.position = new Vector3(-11f, parent.position.y + 0.463f, -10f);
+            trashCan.transform.localPosition = new Vector3(-11f, parent.position.y + 0.463f, -10f);
             trashCan.transform.localScale = new Vector3(3f, 3f, 3f);
             // Viktigt att detta är med varje gång en trashcan skapas
             trashCanPositions.Add(trashCan.transform);
@@ -123,7 +112,7 @@ public class MapCreator : MonoBehaviour
         if (trashCans.Length > 3)
         {
             GameObject trashCan = Instantiate(trashCans[3], parent);
-            trashCan.transform.position = new Vector3(18f, parent.position.y + 0.2f, -16f);
+            trashCan.transform.localPosition = new Vector3(18f, parent.position.y + 0.2f, -16f);
             trashCan.transform.localScale = new Vector3(3f, 3f, 3f);
             // Viktigt att detta är med varje gång en trashcan skapas
             trashCanPositions.Add(trashCan.transform);
