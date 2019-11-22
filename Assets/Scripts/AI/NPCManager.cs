@@ -17,8 +17,9 @@ public class NPCManager : MonoBehaviour
     }
 
     [SerializeField]
-    private GameObject npcPrefab;
-
+    private GameObject npcPrefab;   
+     
+    private Transform parentObject;
     private Transform[] spawnPoints;
     private Transform[] trashCans;
     private SpawnInfo[] spawnInfos;
@@ -26,11 +27,15 @@ public class NPCManager : MonoBehaviour
     // Wave control
     private int amountOfWaves = 10;
 
-    public void SetUp(Transform[] spawnPoints, Transform[] trashCans)
+    public void SetUp(Transform[] spawnPoints, Transform[] trashCans, Transform parentObject)
     {
         if(!hasStarted)
         {
             hasStarted = true;
+            // Get parent object object
+            //parentObject = GetComponentInParent<TPTP>().t;
+            this.parentObject = parentObject;
+
             this.spawnPoints = spawnPoints;
             this.trashCans = trashCans;
             spawnInfos = new SpawnInfo[spawnPoints.Length];
@@ -74,7 +79,7 @@ public class NPCManager : MonoBehaviour
         {
             foreach (SpawnInfo spawnInfo in spawnInfos)
             {
-                GameObject npc = Instantiate(npcPrefab);
+                GameObject npc = Instantiate(npcPrefab,parentObject);
                 npc.transform.position = spawnInfo.spawnPoint.position;
                 npc.GetComponent<NavMeshAgent>().SetDestination(spawnInfo.closestTrashCan.position);
                 yield return new WaitForSeconds(waitTimeBetweenNPCs);

@@ -12,7 +12,7 @@ public class ARTapToPlace : MonoBehaviour
     //Gameobjects
     public GameObject placementIndicator;
     public GameObject objectToPlace;
-    private GameObject sceneInstance;
+    public GameObject sceneInstance;
 
 
     //AR managers

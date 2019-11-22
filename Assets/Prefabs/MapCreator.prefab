@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3053944640912417946}
   - component: {fileID: 3053944640912417925}
+  - component: {fileID: 1760751848}
+  - component: {fileID: 1760751849}
   m_Layer: 0
   m_Name: MapCreator
   m_TagString: Untagged
@@ -53,7 +55,11 @@ MonoBehaviour:
   - {fileID: 129346, guid: c50789636e1fc5c4b8a37e2700e4a3c1, type: 3}
   groundPrefab: {fileID: 8496638967422118110, guid: 50926347cc61e7141a363a831f5eca8b,
     type: 3}
-  trashCans: []
+  trashCans:
+  - {fileID: 188538, guid: f738f6acdbb1d5844bd657732cb05e13, type: 3}
+  - {fileID: 122224, guid: 008c6febfb8d88a4496fe51f2a2d409a, type: 3}
+  - {fileID: 122224, guid: 008c6febfb8d88a4496fe51f2a2d409a, type: 3}
+  - {fileID: 182694, guid: e1cc26c508a6ec34e95a50f62aa7b3df, type: 3}
   spawnProbability: 0.5
   temporary: {fileID: 0}
   grassTile: {fileID: 195558, guid: 7b30b5ba44201104fba4e71a527b6905, type: 3}
@@ -61,3 +67,46 @@ MonoBehaviour:
   - {fileID: 160532, guid: 142ea8d35ff76aa42bf5c81b59a31de3, type: 3}
   - {fileID: 168864, guid: f2cc24a0516604f44b427b0abefb1b97, type: 3}
   - {fileID: 184470, guid: 21dc6678a099fda4ea40fca98c3e710b, type: 3}
+--- !u!114 &1760751848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3053944640912417947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e20d8a911b6d2498da7ce9bb3f8b8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcPrefab: {fileID: 2796980985458859628, guid: 7c8a73f95c5161a44b63e27bc4f21411,
+    type: 3}
+--- !u!114 &1760751849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3053944640912417947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df27b9289d1e8c4fb82e0df4f4673ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 768
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_BuildHeightMesh: 0
+  m_NavMeshData: {fileID: 0}

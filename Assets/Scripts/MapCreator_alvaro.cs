@@ -48,7 +48,7 @@ public class MapCreator_alvaro : MonoBehaviour
 
     private void InitializeNPCs()
     {
-        npcManager.SetUp(spawnPoints.ToArray(), trashCanPositions.ToArray());
+        npcManager.SetUp(spawnPoints.ToArray(), trashCanPositions.ToArray(),transform);
     }
 
     void CreateMap(Vector3[] points, GameObject parent)
