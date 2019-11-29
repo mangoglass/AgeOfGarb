@@ -64,11 +64,12 @@ public class MapCreator : MonoBehaviour
             new Vector3(40,0,-40), };
 
         CreateBuildingOutline(points, parent);
-        CreateTreesInSquare(points[0] + new Vector3(minDist, 0, minDist), points[2] - new Vector3(minDist, 0, minDist), 40, parent);
-        CreateCloudsInSquare(points[0] - new Vector3(minDist, 0, minDist), points[2] + new Vector3(minDist, 0, minDist), 10, parent);
 
         CreateGround(points, parent.transform);
         CreateTrashCans(parent.transform);
+
+        CreateTreesInSquare(points[0] + new Vector3(minDist, 0, minDist), points[2] - new Vector3(minDist, 0, minDist), 7, parent);
+        CreateCloudsInSquare(points[0] - new Vector3(minDist, 0, minDist), points[2] + new Vector3(minDist, 0, minDist), 10, parent);
 
         // UPDATE NAVMESH
         GameObject surface = Instantiate(surfacePrefab, parent.transform);
@@ -87,39 +88,17 @@ public class MapCreator : MonoBehaviour
     //TODO: Rodrigo & Natalie, ni kanske vill utveckla denna funtion. Den tar just nu bara in en papperskorg.
     private void CreateTrashCans(Transform parent)
     {
-        if (trashCans.Length > 0)
-        {
+        Vector3[] positions = new Vector3[] {
+            new Vector3(-8f, 0f, 10f),
+            new Vector3(12f, 0f, 13f),
+            new Vector3(-11f, 0f, -10f),
+            new Vector3(18f, 0f, -16f)
+        };
+
+        for (int i = 0; i < trashCans.Length; i++) {
             GameObject trashCan = Instantiate(trashCans[0], parent);
-            trashCan.transform.localPosition = new Vector3(-8f, parent.position.y + 1.26f, 10f);
-            trashCan.transform.localScale = new Vector3(3f, 3f, 3f);
-            // Viktigt att detta är med varje gång en trashcan skapas
-            trashCanPositions.Add(trashCan.transform);
-        }
-
-        if (trashCans.Length > 1)
-        {
-            GameObject trashCan = Instantiate(trashCans[1], parent);
-            trashCan.transform.localPosition = new Vector3(12f, parent.position.y + 0.463f, 13f);
-            trashCan.transform.localScale = new Vector3(3f, 3f, 3f);
-            // Viktigt att detta är med varje gång en trashcan skapas
-            trashCanPositions.Add(trashCan.transform);
-        }
-
-        if (trashCans.Length > 2)
-        {
-            GameObject trashCan = Instantiate(trashCans[2], parent);
-            trashCan.transform.localPosition = new Vector3(-11f, parent.position.y + 0.463f, -10f);
-            trashCan.transform.localScale = new Vector3(3f, 3f, 3f);
-            // Viktigt att detta är med varje gång en trashcan skapas
-            trashCanPositions.Add(trashCan.transform);
-        }
-
-        if (trashCans.Length > 3)
-        {
-            GameObject trashCan = Instantiate(trashCans[3], parent);
-            trashCan.transform.localPosition = new Vector3(18f, parent.position.y + 0.2f, -16f);
-            trashCan.transform.localScale = new Vector3(3f, 3f, 3f);
-            // Viktigt att detta är med varje gång en trashcan skapas
+            trashCan.transform.localPosition = positions[i];
+            trashCan.transform.localRotation = Quaternion.Euler(0, Random.Range(0,360), 0);
             trashCanPositions.Add(trashCan.transform);
         }
     }
@@ -157,8 +136,10 @@ public class MapCreator : MonoBehaviour
         }
     }
 
-    void CreateTreesInSquare(Vector3 a, Vector3 b, int n, GameObject parent)
+    void CreateTreesInSquare(Vector3 a, Vector3 b, int n_cells, GameObject parent)
     {
+        float scale = 1.7f;
+
         Vector3 diff = (b - a);
 
 
@@ -169,7 +150,6 @@ public class MapCreator : MonoBehaviour
         float xRange = diff.x;
         float zRange = diff.z;
 
-        float n_cells = Mathf.Floor(Mathf.Sqrt(n));
         float x_step = xRange / n_cells;
         float z_step = zRange / n_cells;
 
@@ -177,7 +157,18 @@ public class MapCreator : MonoBehaviour
         {
             for (int z = 0; z < n_cells; z++)
             {
-                int n_trees = Mathf.FloorToInt(Mathf.Sqrt(Random.Range(0, 20)));
+                bool trash = false;
+                foreach (Transform trashcan in trashCanPositions) {
+                    Vector3 pos = trashcan.localPosition;
+                    if (pos.x >= a.x + x * x_step && pos.x <= a.x + (x+1) * x_step &&
+                        pos.z >= a.z + z * z_step && pos.z <= a.z + (z+1) * z_step) {
+                        trash = true;
+                        break;
+                    }
+                }
+                if (trash) continue;
+
+                int n_trees = 4 - Mathf.FloorToInt(Mathf.Sqrt(Random.Range(1, 17)));
 
                 for (int i = 0; i < n_trees; i++)
                 {
