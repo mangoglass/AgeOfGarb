@@ -12,8 +12,8 @@ public class ARTapToPlace : MonoBehaviour
     //Gameobjects
     public GameObject placementIndicator;
     public GameObject objectToPlace;
-    private GameObject sceneInstance;
-
+    public GameObject sceneInstance;
+    public ARCamScale camScaleScript;
 
     //AR managers
     private ARSessionOrigin arOrigin;
@@ -26,6 +26,7 @@ public class ARTapToPlace : MonoBehaviour
     private Pose placementPose;
     private bool placementPoseIsValid = false;
     private float scale;
+    private MapCreator mapCreator;
 
 
     GameObject resetButton;
@@ -44,7 +45,7 @@ public class ARTapToPlace : MonoBehaviour
         arPlanes = arOrigin.GetComponent<ARPlaneManager>();
         arCloud = arOrigin.GetComponent<ARPointCloudManager>();
 
-
+        mapCreator = GetComponentInChildren<MapCreator>();
 
         placeButton = GameObject.Find("PlaceScene");
         resetButton = GameObject.Find("Reset");
@@ -65,16 +66,17 @@ public class ARTapToPlace : MonoBehaviour
 
     public void Restart()
     {
-
-
-
         placeButton.SetActive(true);
         resetButton.SetActive(false);
+
+        mapCreator.RemoveMap();
+
         Destroy(sceneInstance);
         arPlanes.enabled = true;
         arCloud.enabled = true;
         init = true;
-        Camera.main.GetComponent<CamScript>().enabled = false; //
+        Camera.main.GetComponent<CamScript>().enabled = false;
+        camScaleScript.Disable();
     }
 
 
@@ -86,10 +88,13 @@ public class ARTapToPlace : MonoBehaviour
         {
             //Instantiate the prefab
             sceneInstance = Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
-            sceneInstance.transform.localScale = new Vector3(scale*0.012f, scale*0.012f, scale*0.012f);
+            //sceneInstance.transform.localScale = new Vector3(scale*0.012f, scale*0.012f, scale*0.012f);
+            
+            camScaleScript.SetSurfaceScale(scale);
+            camScaleScript.SetTarget(sceneInstance.transform);
+            camScaleScript.Enable();
 
-            MapCreator mc = GetComponentInChildren<MapCreator>();
-            mc.CreateMap(sceneInstance);
+            mapCreator.CreateMap(sceneInstance);
 
             //Disable new plane detection from now on. 
             arPlanes.enabled = false;
@@ -147,25 +152,28 @@ public class ARTapToPlace : MonoBehaviour
 
     private void UpdatePlacementPose()
     {
-        var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
-        var hits = new List<ARRaycastHit>();
-
-        arRaycast.Raycast(screenCenter, hits, TrackableType.PlaneWithinBounds );
-
-        placementPoseIsValid = hits.Count > 0;
-        if (placementPoseIsValid)
+        if (Camera.current != null)
         {
-            var trackId = hits[0].trackableId;
+            var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
+            var hits = new List<ARRaycastHit>();
 
-            placementPlane = arPlanes.GetPlane(trackId);
+            arRaycast.Raycast(screenCenter, hits, TrackableType.PlaneWithinBounds);
 
-            placementPose.position = placementPlane.center;
+            placementPoseIsValid = hits.Count > 0;
+            if (placementPoseIsValid)
+            {
+                var trackId = hits[0].trackableId;
+
+                placementPlane = arPlanes.GetPlane(trackId);
+
+                placementPose.position = placementPlane.center;
 
 
-            //Set rotation of indicator to follow phones forward. 
-            var cameraForward = Camera.current.transform.forward;
-            var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
-            placementPose.rotation = Quaternion.LookRotation(cameraBearing); //Maybe rotated according to the planes normal? 
+                //Set rotation of indicator to follow phones forward. 
+                var cameraForward = Camera.current.transform.forward;
+                var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
+                placementPose.rotation = Quaternion.LookRotation(cameraBearing); //Maybe rotated according to the planes normal? 
+            }
         }
     }
 }

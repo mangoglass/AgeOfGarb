@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 4744501655724683668}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.0023, y: 0.85, z: -9.2167}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   decal: {fileID: 2037422687595662364, guid: 7c27384ecd742644693948554ffb8d65, type: 3}
   rayLength: 0.1
-  gravityMultiplier: 0.0005
+  gravityMultiplier: 0.06
 --- !u!135 &-7801931694841598468
 SphereCollider:
   m_ObjectHideFlags: 0
