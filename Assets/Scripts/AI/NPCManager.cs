@@ -17,7 +17,7 @@ public class NPCManager : MonoBehaviour
     }
 
     [SerializeField]
-    private GameObject npcPrefab;   
+    private GameObject npcPrefab;
      
     private Transform parentObject;
     private Transform[] spawnPoints;
@@ -43,6 +43,12 @@ public class NPCManager : MonoBehaviour
 
             StartCoroutine(SpawnWaves());
         }
+    }
+
+    public void Stop()
+    {
+        hasStarted = false;
+        StopAllCoroutines();
     }
 
     private IEnumerator SpawnWaves()
@@ -80,12 +86,10 @@ public class NPCManager : MonoBehaviour
             foreach (SpawnInfo spawnInfo in spawnInfos)
             {
                 GameObject npc = Instantiate(npcPrefab,parentObject);
-                Debug.Log(spawnInfo.spawnPoint.position);
                 npc.transform.position = spawnInfo.spawnPoint.position;
                 npc.GetComponent<NavMeshAgent>().SetDestination(spawnInfo.closestTrashCan.position);
                 yield return new WaitForSeconds(waitTimeBetweenNPCs);
             }
-
         }
     }
 

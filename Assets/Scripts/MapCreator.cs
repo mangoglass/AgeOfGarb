@@ -79,6 +79,11 @@ public class MapCreator : MonoBehaviour
 
     }
 
+    public void RemoveMap()
+    {
+        npcManager.Stop();
+    }
+
     //TODO: Rodrigo & Natalie, ni kanske vill utveckla denna funtion. Den tar just nu bara in en papperskorg.
     private void CreateTrashCans(Transform parent)
     {

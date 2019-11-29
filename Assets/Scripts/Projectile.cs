@@ -10,6 +10,8 @@ public class Projectile : MonoBehaviour
     private RaycastHit hit;
     private Color projColor;
     private Vector3 oldPos;
+    private bool hasHit;
+
     [SerializeField]
     private float rayLength = 0.1f;
     [SerializeField]
@@ -28,30 +30,34 @@ public class Projectile : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         projColor = Random.ColorHSV(0, 1, 1, 1, 1, 1);
         gameObject.GetComponent<Renderer>().material.color = projColor;
+        hasHit = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-
         Vector3 diff = transform.position - oldPos;
-        if (Physics.Raycast(transform.position, diff.normalized, out hit, diff.magnitude))
+        if (!hasHit && Physics.Raycast(transform.position, diff.normalized, out hit, diff.magnitude))
         {
-            /*if (hit.transform.gameObject.layer == LayerMask.NameToLayer("NPC"))
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("NPC"))
             {
-                hit.collider.gameObject.GetComponent<NPCController>().HitNpc();
-            }*/
+                hit.collider.gameObject.GetComponentInParent<NPCController>().HitNpc();
+            }
 
             Quaternion decalRotation = Quaternion.LookRotation(hit.normal);
             float randomZRot = Random.Range(0f, 360f);
             decalRotation *= Quaternion.Euler(0f, 180f, randomZRot);
-            GameObject decalClone = Instantiate(decal, hit.point + hit.normal * 0.001f, decalRotation);
+
+            float surfaceOffset = 0.05f + Random.value * 0.1f;
+
+            GameObject decalClone = Instantiate(decal, hit.point + (hit.normal * surfaceOffset), decalRotation);
             MeshRenderer decalRenderer = decalClone.GetComponent<MeshRenderer>();
             decalRenderer.material.color = projColor;
             decalClone.transform.parent = hit.transform;
-            print(hit.transform.gameObject.name);
+            hasHit = true;
+
             Destroy(gameObject);
+            Destroy(this);
         }
 
         oldPos = transform.position;
@@ -61,5 +67,4 @@ public class Projectile : MonoBehaviour
     {
         rb.AddForce(-Vector3.up * Physics.gravity.magnitude * gravityMultiplier);
     }
-
 }
