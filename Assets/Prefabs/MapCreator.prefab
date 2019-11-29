@@ -55,15 +55,13 @@ MonoBehaviour:
   groundPrefab: {fileID: 8496638967422118110, guid: 50926347cc61e7141a363a831f5eca8b,
     type: 3}
   trashCans:
-  - {fileID: 188538, guid: f738f6acdbb1d5844bd657732cb05e13, type: 3}
-  - {fileID: 122224, guid: 008c6febfb8d88a4496fe51f2a2d409a, type: 3}
-  - {fileID: 122224, guid: 008c6febfb8d88a4496fe51f2a2d409a, type: 3}
-  - {fileID: 182694, guid: e1cc26c508a6ec34e95a50f62aa7b3df, type: 3}
+  - {fileID: 6953623313018840062, guid: 6c444e36c22814a2a8c8676451d3dae9, type: 3}
+  - {fileID: 6953623313018840062, guid: 6c444e36c22814a2a8c8676451d3dae9, type: 3}
+  - {fileID: 6953623313018840062, guid: 6c444e36c22814a2a8c8676451d3dae9, type: 3}
+  - {fileID: 6953623313018840062, guid: 6c444e36c22814a2a8c8676451d3dae9, type: 3}
   surfacePrefab: {fileID: 1750216831512920589, guid: f7aa2c40150eac04d806c2258ebd2036,
     type: 3}
   spawnProbability: 0.5
-  temporary: {fileID: 0}
-  grassTile: {fileID: 195558, guid: 7b30b5ba44201104fba4e71a527b6905, type: 3}
   clouds:
   - {fileID: 160532, guid: 142ea8d35ff76aa42bf5c81b59a31de3, type: 3}
   - {fileID: 168864, guid: f2cc24a0516604f44b427b0abefb1b97, type: 3}
