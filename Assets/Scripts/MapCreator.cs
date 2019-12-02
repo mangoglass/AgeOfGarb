@@ -7,6 +7,8 @@ using UnityEngine.AI;
 public class MapCreator : MonoBehaviour
 {
     [SerializeField]
+    private GameObject[] roadTiles;
+    [SerializeField]
     private GameObject[] buildings;
     [SerializeField]
     private GameObject[] trees;
@@ -65,11 +67,40 @@ public class MapCreator : MonoBehaviour
 
         CreateBuildingOutline(points, parent);
 
-        CreateGround(points, parent.transform);
-        CreateTrashCans(parent.transform);
+
+
+        // I cannot find the map function :)
+        // Maybe this baddie of a language doesn't have a map function 
+        Vector3[] ground_points = new Vector3[]{
+            new Vector3(-45,0,-45),
+            new Vector3(-45,0,45),
+            new Vector3(45,0,45),
+            new Vector3(45,0,-45), };
+
+        CreateGround(ground_points, parent.transform);
+
+        //CreateRoad(points[0] + new Vector3(minDist, 0, minDist), points[2] - new Vector3(minDist, 0, minDist), parent);
 
         CreateTreesInSquare(points[0] + new Vector3(minDist, 0, minDist), points[2] - new Vector3(minDist, 0, minDist), 7, parent);
-        CreateCloudsInSquare(points[0] - new Vector3(minDist, 0, minDist), points[2] + new Vector3(minDist, 0, minDist), 10, parent);
+        CreateCloudsInSquare(points[0] - new Vector3(20, 0, 20), points[2] + new Vector3(20, 0, 20), 15, parent);
+
+
+        Vector3[] trash_positions = new Vector3[] {
+            new Vector3(-8f, 0f, 10f),
+            new Vector3(12f, 0f, 13f),
+            new Vector3(-11f, 0f, -10f),
+            new Vector3(18f, 0f, -16f)
+        };
+        //Magnus Kommentera bort den här raden
+        CreateMapTrashCans(trash_positions, parent);
+
+    }
+
+    //Använd den här funktionen för att skapa trashcans, måste kommentera bort raden längre upp 
+    public void CreateMapTrashCans(Vector3[]trashcan_positions, GameObject parent)
+    {
+
+        CreateTrashCans(trashcan_positions, parent.transform);
 
         // UPDATE NAVMESH
         GameObject surface = Instantiate(surfacePrefab, parent.transform);
@@ -77,7 +108,6 @@ public class MapCreator : MonoBehaviour
 
 
         InitializeNPCs(parent.transform);
-
     }
 
     public void RemoveMap()
@@ -86,18 +116,13 @@ public class MapCreator : MonoBehaviour
     }
 
     //TODO: Rodrigo & Natalie, ni kanske vill utveckla denna funtion. Den tar just nu bara in en papperskorg.
-    private void CreateTrashCans(Transform parent)
+    private void CreateTrashCans(Vector3[] trashcan_positions, Transform parent)
     {
-        Vector3[] positions = new Vector3[] {
-            new Vector3(-8f, 0f, 10f),
-            new Vector3(12f, 0f, 13f),
-            new Vector3(-11f, 0f, -10f),
-            new Vector3(18f, 0f, -16f)
-        };
+
 
         for (int i = 0; i < trashCans.Length; i++) {
             GameObject trashCan = Instantiate(trashCans[0], parent);
-            trashCan.transform.localPosition = positions[i];
+            trashCan.transform.localPosition = trashcan_positions[i];
             trashCan.transform.localRotation = Quaternion.Euler(0, Random.Range(0,360), 0);
             trashCanPositions.Add(trashCan.transform);
         }
@@ -117,7 +142,32 @@ public class MapCreator : MonoBehaviour
             ground.GetComponent<MeshCollider>().sharedMesh = mesh;
         }
     }
-    
+    void CreateRoad(Vector3 a, Vector3 b ,GameObject parent)
+    {
+        GameObject[] straight_tile = new GameObject[] { roadTiles[0] };
+        GameObject[] curve_tile = new GameObject[] { roadTiles[1] };
+
+        float tile_size = 5;
+
+        Vector3 diff = (b - a);
+        float xRange = diff.x;
+        float zRange = diff.z;
+
+        int n = Mathf.RoundToInt(xRange / tile_size);
+
+        for (int i = 0; i < n; i++)
+        {
+            //float xf = Random.Range(0f, 1f);
+            //float zf = Random.Range(0f, 1f);
+
+            Vector3 pos = a + new Vector3(tile_size * i , 0, 0);
+            //CreateCloud(pos, Quaternion.identity, scale, parent);
+
+            CreateObject(straight_tile, pos, Quaternion.identity, scale, parent);
+
+        }
+    }
+
     void CreateCloudsInSquare(Vector3 a, Vector3 b, int n, GameObject parent)
     {
         Vector3 diff = (b - a);
