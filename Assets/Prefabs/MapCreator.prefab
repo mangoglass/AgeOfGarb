@@ -55,6 +55,10 @@ MonoBehaviour:
   - {fileID: 129346, guid: c50789636e1fc5c4b8a37e2700e4a3c1, type: 3}
   - {fileID: 189882, guid: ee6af68a3d2c1864ebc6cfc3be82d851, type: 3}
   - {fileID: 129346, guid: c50789636e1fc5c4b8a37e2700e4a3c1, type: 3}
+  gateLight: {fileID: 1577719089577292062, guid: 1dab9a3162c1d4f0694fa008a6b7bea9,
+    type: 3}
+  grassPrefab: {fileID: 2084210119391314664, guid: ecc6d9e06c954436cb8797be002a4661,
+    type: 3}
   groundPrefab: {fileID: 8496638967422118110, guid: 50926347cc61e7141a363a831f5eca8b,
     type: 3}
   trashCans:
@@ -66,9 +70,9 @@ MonoBehaviour:
     type: 3}
   spawnProbability: 0.5
   clouds:
-  - {fileID: 160532, guid: 142ea8d35ff76aa42bf5c81b59a31de3, type: 3}
-  - {fileID: 168864, guid: f2cc24a0516604f44b427b0abefb1b97, type: 3}
-  - {fileID: 184470, guid: 21dc6678a099fda4ea40fca98c3e710b, type: 3}
+  - {fileID: 8345094602604853235, guid: 545f729c3c9bd403b9580e7c3fd8d0dd, type: 3}
+  - {fileID: 3491519146889806703, guid: 895ffaaa8b0244d4d94584b7a6ee0a3b, type: 3}
+  - {fileID: 6665721152366941068, guid: 264f77ab90c9f4beb8254d591844439d, type: 3}
 --- !u!114 &1760751848
 MonoBehaviour:
   m_ObjectHideFlags: 0
