@@ -360,6 +360,8 @@ MonoBehaviour:
     type: 3}
   sceneInstance: {fileID: 0}
   camScaleScript: {fileID: 798782812}
+  spawnObject: {fileID: 7541989823884334348, guid: 1ab0050a65cbd0c43b9e18369ddf217d,
+    type: 3}
 --- !u!4 &241930053
 Transform:
   m_ObjectHideFlags: 0
@@ -479,9 +481,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SerializedLibrary: {fileID: 11400000, guid: 634e0a5facaedee409d96dbf7f0f33ad,
     type: 2}
-  m_MaxNumberOfMovingImages: 6
-  m_TrackedImagePrefab: {fileID: 5577151008589904084, guid: bfd4af9673f53c846a70e99a7eddd443,
-    type: 3}
+  m_MaxNumberOfMovingImages: 4
+  m_TrackedImagePrefab: {fileID: 0}
 --- !u!1 &476920108
 GameObject:
   m_ObjectHideFlags: 0
@@ -953,8 +954,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4966719baa26e4b0e8231a24d9bd491a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FocusMode: 0
-  m_LightEstimationMode: 1
+  m_FocusMode: 1
+  m_LightEstimationMode: 0
 --- !u!4 &798782810
 Transform:
   m_ObjectHideFlags: 0
@@ -1316,7 +1317,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e224f6a307aa4a741aa7c43d6c8a78b3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1529,6 +1530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AttemptUpdate: 1
+  m_MatchFrameRate: 1
 --- !u!4 &2011045037
 Transform:
   m_ObjectHideFlags: 0
