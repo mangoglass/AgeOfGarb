@@ -31,6 +31,8 @@ public class ARTapToPlace : MonoBehaviour
     //Placement
     private ARPlane placementPlane;
     private Pose placementPose;
+    private Mesh indMesh;
+    private List<Vector3> boundaries;
     private bool placementPoseIsValid = false;
     private float scale;
     private MapCreator mapCreator;
@@ -56,8 +58,9 @@ public class ARTapToPlace : MonoBehaviour
         arCloud = arOrigin.GetComponent<ARPointCloudManager>();
         arCameraManager = Camera.main.GetComponent<ARCameraManager>();
 
-       
 
+        indMesh = placementIndicator.GetComponentInChildren<MeshFilter>().mesh;
+        
         arImageManager = arOrigin.GetComponent<ARTrackedImageManager>();
         mapCreator = GetComponentInChildren<MapCreator>();
 
@@ -68,6 +71,7 @@ public class ARTapToPlace : MonoBehaviour
         resetButton = GameObject.Find("Reset");
         resetButton.SetActive(false);
     }
+
 
     // Update is called once per frame
     void Update()
@@ -85,7 +89,7 @@ public class ARTapToPlace : MonoBehaviour
     void UpdateTrashCanPosition()
     {
         //Raycasts to images to get their position. 
-        var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
+        var screenCenter = Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
         var hits = new List<ARRaycastHit>();
 
         arRaycast.Raycast(screenCenter, hits, TrackableType.Image);
@@ -218,9 +222,61 @@ public class ARTapToPlace : MonoBehaviour
 
 
             //get the shortest distance to the border of the plane and use that as a scale. 
+           
             Vector2 extents = placementPlane.extents;
             scale = Mathf.Min(new float[] { extents.x, extents.y });
-            placementIndicator.transform.localScale = new Vector3(scale, scale, scale);
+
+            Vector3[] verts = indMesh.vertices;
+            boundaries = new List<Vector3>();
+
+            placementIndicator.transform.localScale = new Vector3(100, 100, 100);
+            for (int k = 0; k<verts.Length; k++)
+            {
+                
+                for (int i = 0; i < placementPlane.boundary.Length; i++)
+                {
+
+                    if (i > 0)
+                    {
+
+                        //Find 
+                        Vector3 intersect;
+                        Vector3 bound = placementPlane.transform.TransformPoint(placementPlane.boundary[i]);
+                        Vector3 edge = bound - placementPlane.transform.TransformPoint(placementPlane.boundary[i - 1]);
+                        Vector3 center = placementPlane.center;
+                        Vector3 line = verts[k] - center;
+                    
+                        bool hit = Math3d.LineLineIntersection(out intersect, bound, edge, center, line);
+
+                        if(hit == true)
+                        {
+                            Debug.Log(hit.ToString());
+                            if (Vector3.Distance(placementPlane.center, intersect) < Vector3.Distance(placementPlane.center, verts[k]))
+                            {
+                                verts[k] = intersect;
+                            }
+                        }
+                       
+                      
+                   
+
+
+                    }
+
+
+                }
+            }
+
+
+            for (int k = 0; k < verts.Length; k++)
+            {
+                Debug.Log(verts[k].ToString("F4"));
+            }
+                //Debug.Log(boundaries.Count.ToString());
+
+                indMesh.vertices = verts;
+            indMesh.RecalculateNormals();
+            
         }
         else
         {
@@ -250,7 +306,7 @@ public class ARTapToPlace : MonoBehaviour
                 //Set rotation of indicator to follow phones forward. 
                 var cameraForward = Camera.current.transform.forward;
                 var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
-                placementPose.rotation = Quaternion.LookRotation(cameraBearing); //Maybe rotated according to the planes normal? 
+                placementPose.rotation = Quaternion.LookRotation(placementPlane.normal);//cameraBearing); //Maybe rotated according to the planes normal? 
             }
         }
     }
