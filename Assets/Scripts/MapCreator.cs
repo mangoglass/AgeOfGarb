@@ -92,7 +92,7 @@ public class MapCreator : MonoBehaviour
             new Vector3(18f, 0f, -16f)
         };
         //Magnus Kommentera bort den här raden
-        CreateMapTrashCans(trash_positions, parent);
+        //CreateMapTrashCans(trash_positions, parent);
 
     }
 
@@ -120,7 +120,7 @@ public class MapCreator : MonoBehaviour
     {
 
 
-        for (int i = 0; i < trashCans.Length; i++) {
+        for (int i = 0; i < trashcan_positions.Length; i++) { //Ändrat för att inte behöva scanna 4 trashcans hela tiden. 
             GameObject trashCan = Instantiate(trashCans[0], parent);
             trashCan.transform.localPosition = trashcan_positions[i];
             trashCan.transform.localRotation = Quaternion.Euler(0, Random.Range(0,360), 0);
