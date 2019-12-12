@@ -91,8 +91,8 @@ public class MapCreator : MonoBehaviour
             new Vector3(35,0,35),
             new Vector3(35,0,-35), };
         CreateRoad(road_points, parent);
-        GameObject gp = CreateObject(grassPrefab, new Vector3(0, 0.001F, 0), Quaternion.identity, 1f, parent);
-        gp.transform.localScale = new Vector3(20f, 0.1F, 20f);
+        //GameObject gp = CreateObject(grassPrefab, new Vector3(0, -10.0F, 0), Quaternion.identity, 1f, parent);
+        //gp.transform.localScale = new Vector3(20f, 0.1F, 20f);
 
         CreateTreesInSquare(points[0] + new Vector3(minDist + 2, 0, minDist + 2), points[2] - new Vector3(minDist + 2, 0, minDist + 2), 7, parent);
         CreateCloudsInSquare(points[0] - new Vector3(20, 0, 20), points[2] + new Vector3(20, 0, 20), 15, parent);
@@ -168,11 +168,13 @@ public class MapCreator : MonoBehaviour
             float zStep = diff.z / n;
 
             Quaternion curve_rot = Quaternion.Euler(0, 90 + i * 90, 0);
-            GameObject curve_road = CreateObject(curve_tile, points[i], curve_rot, scale, parent);
+            Vector3 curve_newPos = points[i] + new Vector3(0, 0.4f, 0);
+
+            GameObject curve_road = CreateObject(curve_tile, curve_newPos, curve_rot, scale, parent);
 
             for (int j = 1; j < n; j++)
             {
-                Vector3 newPos = points[i] + new Vector3(xStep * j, 0, zStep * j);
+                Vector3 newPos = points[i] + new Vector3(xStep * j, 0.4f, zStep * j);
 
 
                 Quaternion rot = Quaternion.identity;
