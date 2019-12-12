@@ -102,10 +102,11 @@ public class ARTapToPlace : MonoBehaviour
             {
                 
                 GameObject s = spawnedCans[hits[0].trackableId];
-                if (hits[0].pose.position.magnitude - s.transform.position.magnitude > 0.02f)
+                if (Vector3.Distance(hits[0].pose.position,s.transform.position) > 0.01f)
                 {
                     s.transform.position = hits[0].pose.position;
                 }
+                
                     
             }
      
@@ -219,7 +220,7 @@ public class ARTapToPlace : MonoBehaviour
 
             //get the shortest distance to the border of the plane and use that as a scale. 
             Vector2 extents = placementPlane.extents;
-            scale = Mathf.Min(new float[] { extents.x, extents.y });
+            scale = Mathf.Max(new float[] { extents.x, extents.y });
             placementIndicator.transform.localScale = new Vector3(scale, scale, scale);
         }
         else
