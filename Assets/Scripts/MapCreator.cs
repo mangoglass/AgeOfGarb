@@ -320,6 +320,21 @@ public class MapCreator : MonoBehaviour
                     rot = Quaternion.Euler(0, 90, 0);
                 }
 
+                if(j > 0)
+                {
+                    Vector3 disp;
+                    if (Mathf.Abs(newPos.x) > Mathf.Abs(newPos.z))
+                    {
+                        disp = new Vector3(-Mathf.Sign(newPos.x) * 1.31f, 0.55f, 0);
+                    } else
+                    {
+                        disp = new Vector3(0, 0.55f, -Mathf.Sign(newPos.z) * 1.31f);
+                    }
+
+                    Vector3 pathPos = points[i] + new Vector3(xStep * j, 0, zStep * j) + disp; ///new Vector3(0,0.55f,1.2f);
+                    GameObject pathTile = CreateObject(roadTiles[0], pathPos, rot, scale, parent);
+                }
+
 
                 GameObject newBuilding = CreateObject(buildings, newPos, rot, scale, parent);
                 newBuilding.transform.localScale = new Vector3(
