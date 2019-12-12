@@ -12,7 +12,7 @@ public class CloudMovement : MonoBehaviour
 
     void Start()
     {
-        travelTime = Random.Range(25, 85);
+        travelTime = Random.Range(60, 180);
         speed = (maxVal - minVal) / travelTime;
     }
 
