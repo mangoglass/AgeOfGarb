@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 //using UnityEngine.Experimental.XR;
@@ -38,6 +39,8 @@ public class ARTapToPlace : MonoBehaviour
 
     private Dictionary<TrackableId, GameObject> spawnedCans;
 
+
+    
 
     GameObject resetButton;
     GameObject placeButton;
@@ -115,17 +118,8 @@ public class ARTapToPlace : MonoBehaviour
 
     public void Restart()
     {
-        placeButton.SetActive(true);
-        resetButton.SetActive(false);
-        arCameraManager.focusMode = CameraFocusMode.Auto;
-        mapCreator.RemoveMap();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-        Destroy(sceneInstance);
-        arPlanes.enabled = true;
-        arCloud.enabled = true;
-        init = true;
-        Camera.main.GetComponent<CamScript>().enabled = false;
-        camScaleScript.Disable();
     }
 
 
