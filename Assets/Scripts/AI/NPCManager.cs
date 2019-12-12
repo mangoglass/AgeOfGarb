@@ -21,10 +21,10 @@ public class NPCManager : MonoBehaviour
     [SerializeField]
     private GameObject npcPrefab;
      
-    private Transform parentObject;
+    internal Transform parentObject;
     private Transform[] spawnPoints;
-    public Transform[] trashCans;
-    public bool[] fullTrashCans;
+    internal Transform[] trashCans;
+    internal bool[] fullTrashCans;
     // Switch trash can model after each value on this array.
     private int[] trashCanThresholds = { 7, 15, maxTrashAmount};
     // For each trash can, hold the index of the current trash can model, this is the index if the child object that is active.
@@ -185,6 +185,8 @@ public class NPCManager : MonoBehaviour
         if(!gameOver && !fullTrashCans[index])
         {
             amountOfTrashInTrashCan[index]++;
+            //TODO: till Tom, anropa funtion här!
+
             // Check if trash can model needs to change.
             SwitchTrashCanModel(index);
             // This trash can is now full!

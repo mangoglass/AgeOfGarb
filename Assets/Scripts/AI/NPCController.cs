@@ -135,7 +135,7 @@ public class NPCController : MonoBehaviour
         {
             flyingTrash.gameObject.SetActive(true);
             hasTrash = false;
-            flyingTrash.parent = null;
+            flyingTrash.parent = npcManager.parentObject;
             flyingTrash.GetComponent<Collider>().enabled = true;
             trash_rb = flyingTrash.GetComponent<Rigidbody>();
             trash_rb.isKinematic = false;
