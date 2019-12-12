@@ -5,6 +5,18 @@ public class UI : MonoBehaviour
 {
     [SerializeField] private Text scoreElement;
     [SerializeField] private Text flavourText;
+    [SerializeField] private Text gameOverElement;
+    [SerializeField] private GameObject panel;
+    private CanvasRenderer canvasRenderer;
+    private Image panelImage;
+
+    void Start()
+    {
+        panelImage = panel.GetComponent<Image>();
+        canvasRenderer = panelImage.GetComponent<CanvasRenderer>();
+        canvasRenderer.SetAlpha(0.0f);
+        gameOverElement.CrossFadeAlpha(0f, 0f, false);
+    }
 
     public void SetScore(int score) 
     {
@@ -49,5 +61,18 @@ public class UI : MonoBehaviour
         else if (score >= 5) {
             flavourText.text = "The weight of dropped trash is more than a newborn human baby";
         }
+    }
+
+    public void DisplayGameOver()
+    {
+        panelImage.CrossFadeAlpha(255f, 250.0f, false);
+        gameOverElement.CrossFadeAlpha(255f, 250f, false);
+
+    }
+
+    public void HideGameOver()
+    {
+        panelImage.CrossFadeAlpha(0f, 0f, false);
+        gameOverElement.CrossFadeAlpha(0f, 0f, false);
     }
 }
