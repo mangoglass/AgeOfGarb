@@ -30,6 +30,8 @@ public class NPCController : MonoBehaviour
     private bool hasReached = false;
     private bool isGoingHome = false;
     private int trashCanIndex;
+    private AudioSource[] audioSources;
+    public AudioClip[] npcScreamClips;
 
     internal NavMeshAgent agent;
 
@@ -41,7 +43,11 @@ public class NPCController : MonoBehaviour
         returnPoint = transform.position;
         // Randomly chose the character for this npc.
         allCharacters[Random.Range(0, allCharacters.Length - 1)].SetActive(true);
+
+        audioSources = GetComponents<AudioSource>();
+        audioSources[0].clip = npcScreamClips[Random.Range(0, npcScreamClips.Length)];
     }
+
     void Update()
     {
         // Wait for everything to be initialized.
@@ -91,10 +97,15 @@ public class NPCController : MonoBehaviour
 
     public void HitNpc()
     {
-        if(!isGoingHome && !npcManager.gameOver)
+        if (!isGoingHome && !npcManager.gameOver)
         {
             animator.SetTrigger("Hit");
             DropTrash();
+        }
+
+        if(!audioSources[0].isPlaying && !npcManager.gameOver)
+        {
+            audioSources[0].Play();
         }
     }
 
@@ -110,6 +121,7 @@ public class NPCController : MonoBehaviour
     // This is called if the npc reaches the trash can. 
     private void ThrowTrash()
     {
+        audioSources[1].Play();
         hasReached = true;
         hasTrash = false;
         Destroy(flyingTrash.gameObject);

@@ -39,8 +39,17 @@ public class ARCamScale : MonoBehaviour
         transform.position = Vector3.zero;
     }
 
+    /*
     // Update is called once per frame
     void Update()
+    {
+        Vector3 dist = parentTransform.position - targetTransform.position;
+        Vector3 cameraPos = dist * (1 / (surfaceScale * scale)) - dist;
+        transform.position = cameraPos;
+    }*/
+
+    // OnPreRender is called once per frame before camera renders scene
+    void OnPreRender()
     {
         Vector3 dist = parentTransform.position - targetTransform.position;
         Vector3 cameraPos = dist * (1 / (surfaceScale * scale)) - dist;
