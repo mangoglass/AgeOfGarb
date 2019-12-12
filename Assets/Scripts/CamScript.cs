@@ -35,6 +35,7 @@ public class CamScript : MonoBehaviour
                 GameObject projectile = Instantiate(projectileClass, cam.transform.position + offset, cam.transform.rotation);
                 Rigidbody rb = projectile.GetComponent<Rigidbody>();
                 rb.AddForce(cam.transform.forward * projectileForce, ForceMode.Impulse);
+                AudioManager.instance.Play("Shoot");
                 timeOut = 0;
             }
         }
@@ -48,6 +49,7 @@ public class CamScript : MonoBehaviour
             GameObject projectile = Instantiate(projectileClass, cam.transform.position + offset, cam.transform.rotation);
             Rigidbody rb = projectile.GetComponent<Rigidbody>();
             rb.AddForce(cam.transform.forward * projectileForce, ForceMode.Impulse);
+            AudioManager.instance.Play("Shoot");
         }
     }
 }

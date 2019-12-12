@@ -16,6 +16,8 @@ public class Projectile : MonoBehaviour
     private float rayLength = 0.1f;
     [SerializeField]
     private float gravityMultiplier = 0.0005f;
+    [SerializeField]
+    private float decalDespawnTime = 10f;
 
     void Awake()
     {
@@ -56,6 +58,7 @@ public class Projectile : MonoBehaviour
             decalClone.transform.parent = hit.transform;
             hasHit = true;
 
+            Destroy(decalClone, decalDespawnTime);
             Destroy(gameObject);
             Destroy(this);
         }

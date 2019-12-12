@@ -21,6 +21,8 @@ public class NPCController : MonoBehaviour
     private bool hasTrash = true;
     private bool hasReached = false;
     private bool isGoingHome = false;
+    private AudioSource[] audioSources;
+    public AudioClip[] npcScreamClips;
 
     //DEV:
     private bool once = false;
@@ -31,7 +33,9 @@ public class NPCController : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        audioSources = GetComponents<AudioSource>();
         returnPoint = transform.position;
+        audioSources[0].clip = npcScreamClips[Random.Range(0, npcScreamClips.Length)];
     }
     void Update()
     {
@@ -72,6 +76,7 @@ public class NPCController : MonoBehaviour
 
     public void HitNpc()
     {
+        audioSources[0].Play();
         if(!isGoingHome)
         {
             DropTrash();
@@ -89,6 +94,7 @@ public class NPCController : MonoBehaviour
 
     private void ThrowTrash()
     {
+        audioSources[1].Play();
         hasTrash = false;
         Destroy(trashHand.gameObject);
     }
