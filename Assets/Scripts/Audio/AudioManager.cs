@@ -37,7 +37,9 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
+        Pause("GameOver");
         Play("Soundtrack");
+        Unpause("Soundtrack");
         Play("Ambiance");
     }
 
@@ -105,6 +107,13 @@ public class AudioManager : MonoBehaviour
         }
 
         s.source.UnPause();
+    }
+
+    public void GameOver()
+    {
+        Pause("Soundtrack");
+        Play("GameOver");
+        Unpause("GameOver");
     }
 
 }

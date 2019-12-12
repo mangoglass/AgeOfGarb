@@ -11,11 +11,10 @@ public class ARTapToPlace : MonoBehaviour
 {
 
     //Gameobjects
+    private GameObject sceneInstance;
     public GameObject placementIndicator;
     public GameObject objectToPlace;
-    public GameObject sceneInstance;
     public ARCamScale camScaleScript;
-
 
     private ARTapToPlace arTap;
     public GameObject spawnObject;
@@ -158,7 +157,10 @@ public class ARTapToPlace : MonoBehaviour
             if(spawnPoints.Count== 0)
             {
                 //Add atleast one trash can
-                spawnPoints.Add(new Vector3(0, 0, 0));
+                spawnPoints.Add(new Vector3(-20, 0, 10));
+                spawnPoints.Add(new Vector3(10, 0, 20));
+                spawnPoints.Add(new Vector3(25, 0, -20));
+                spawnPoints.Add(new Vector3(0, 0, 4));
             }
             
 

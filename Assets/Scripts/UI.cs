@@ -65,7 +65,7 @@ public class UI : MonoBehaviour
 
     public void DisplayGameOver()
     {
-        panelImage.CrossFadeAlpha(255f, 250.0f, false);
+        panelImage.CrossFadeAlpha(180f, 250.0f, false);
         gameOverElement.CrossFadeAlpha(255f, 250f, false);
 
     }

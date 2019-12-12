@@ -9,23 +9,39 @@ public class NPCManager : MonoBehaviour
     {
         public Transform spawnPoint;
         public Transform closestTrashCan;
-        public SpawnInfo(Transform spawnPoint, Transform closestTrashCan)
+        public int trashIndex;
+        public SpawnInfo(Transform spawnPoint, Transform closestTrashCan, int trashIndex)
         {
             this.spawnPoint = spawnPoint;
             this.closestTrashCan = closestTrashCan;
+            this.trashIndex = trashIndex;
         }
     }
 
-    [SerializeField]
-    private GameObject npcPrefab;
-     
-    private Transform parentObject;
+    [SerializeField] private GameObject npcPrefab;
+    [SerializeField] private UI ui;
+    [SerializeField] private AudioManager audio;
+    [SerializeField] private int garbageWeight;
+    [SerializeField] private int maxTrashAmount = 10;
+
+
+    internal Transform parentObject;
     private Transform[] spawnPoints;
-    private Transform[] trashCans;
+    internal Transform[] trashCans;
+    internal bool[] fullTrashCans;
+    // Switch trash can model after each value on this array.
+    private int[] trashCanThresholds;
+    // For each trash can, hold the index of the current trash can model, this is the index if the child object that is active.
+    private int[] currentTrashCanModel;
+    private int amountOfFullTrashCans = 0;
     private SpawnInfo[] spawnInfos;
     private bool hasStarted = false;
+
     // Wave control
-    private int amountOfWaves = 10;
+    private const int amountOfWaves = 10;
+    private int amountOfTrashOnGround = 0;
+    private int[] amountOfTrashInTrashCan;
+    internal bool gameOver = false;
 
     public void SetUp(Transform[] spawnPoints, Transform[] trashCans, Transform parentObject)
     {
@@ -33,38 +49,39 @@ public class NPCManager : MonoBehaviour
         {
             hasStarted = true;
             // Get parent object object
-            //parentObject = GetComponentInParent<TPTP>().t;
             this.parentObject = parentObject;
-
+            
             this.spawnPoints = spawnPoints;
             this.trashCans = trashCans;
+            amountOfTrashInTrashCan = new int[trashCans.Length];
             spawnInfos = new SpawnInfo[spawnPoints.Length];
+            fullTrashCans = new bool[trashCans.Length];
+            currentTrashCanModel = new int[trashCans.Length];
             GetClosestTrashCans();
-
             StartCoroutine(SpawnWaves());
-        }
-    }
 
-    public void Stop()
-    {
-        hasStarted = false;
-        StopAllCoroutines();
+            trashCanThresholds = new int[]{ maxTrashAmount / 4, maxTrashAmount / 2, 3 * maxTrashAmount / 4};
+            foreach (Transform trashcan in this.trashCans)
+            {
+                ProgressBar bar = trashcan.gameObject.GetComponentsInChildren<ProgressBar>()[0];
+                bar.MaxValue = maxTrashAmount;
+            }
+        }
     }
 
     private IEnumerator SpawnWaves()
     {
         float timeBetweenWaves = 4f;
-        float timeBetweenNPCs = 2;
-        const float timeBetweenWaves_Min = 0.2f;
-        const float timeBetweenNPCs_Min = 0.1f;
-        const float timeBetweenWaves_Decrement = 1f;
-        const float timeBetweenNPCs_Decrement = 1;
+        float timeBetweenNPCs = 2f;
+        const float timeBetweenWaves_Min = 2f;
+        const float timeBetweenNPCs_Min = 0.2f;
+        const float timeBetweenWaves_Decrement = 0.5f;
+        const float timeBetweenNPCs_Decrement = 0.2f;
         for (;;)
         {
             yield return StartCoroutine(SpawnNPCs(timeBetweenNPCs));
             yield return new WaitForSeconds(timeBetweenWaves);
 
-            //Debug.Log("timeBetweenWaves: " + timeBetweenWaves);
             // This is the time between waves
             if ((timeBetweenWaves - timeBetweenWaves_Decrement) > timeBetweenWaves_Min)
                 timeBetweenWaves -= timeBetweenWaves_Decrement;
@@ -78,7 +95,6 @@ public class NPCManager : MonoBehaviour
         }
     }
 
-
     private IEnumerator SpawnNPCs(float waitTimeBetweenNPCs)
     {
         if (spawnPoints != null)
@@ -88,28 +104,140 @@ public class NPCManager : MonoBehaviour
                 GameObject npc = Instantiate(npcPrefab,parentObject);
                 npc.transform.position = spawnInfo.spawnPoint.position;
                 npc.GetComponent<NavMeshAgent>().SetDestination(spawnInfo.closestTrashCan.position);
+                npc.GetComponent<NPCController>().ActivateAgent(this, spawnInfo.trashIndex);
                 yield return new WaitForSeconds(waitTimeBetweenNPCs);
             }
         }
     }
 
+    private void EndGame()
+    {
+        gameOver = true;
+        StopAllCoroutines();
+        ui.DisplayGameOver();
+        audio.GameOver();
+    }
+
     private void GetClosestTrashCans()
     {
-        for(int i = 0; i < spawnPoints.Length; i++) 
+        Transform spawnPoint;
+        Transform closest;
+        int trashIndex;
+        float closestDistanceSqr;
+        Transform trashCan;
+        float distSqr;
+
+        for (int i = 0; i < spawnPoints.Length; i++) 
         {
-            Transform spawnPoint = spawnPoints[i];
-            Transform closest = trashCans[0];
-            float closestDistanceSqr = 1000000f;
-            foreach(Transform trashCan in trashCans){
-                float distSqr = Vector3.SqrMagnitude(spawnPoint.position - trashCan.position);
-                if (distSqr < closestDistanceSqr)
+            spawnPoint = spawnPoints[i];
+            closest = null;
+            trashIndex = 0;
+            closestDistanceSqr = 1000000f;
+
+            for(int j = 0; j < trashCans.Length; j++){
+                if(!fullTrashCans[j])
                 {
-                    closest = trashCan;
-                    closestDistanceSqr = distSqr;
+                    trashCan = trashCans[j];
+                    distSqr = Vector3.SqrMagnitude(spawnPoint.position - trashCan.position);
+                    if (distSqr < closestDistanceSqr)
+                    {
+                        closest = trashCan;
+                        closestDistanceSqr = distSqr;
+                        trashIndex = j;
+                    }
                 }
             }
-            spawnInfos[i] = new SpawnInfo(spawnPoint, closest);
+            if(closest == null || gameOver)
+            {
+                return;
+            }
+            spawnInfos[i] = new SpawnInfo(spawnPoint, closest, trashIndex);
         }
+    }
+
+    public int GetClosestTrashCanForAgent(Vector3 currentPos)
+    {
+        int nextIndex = -1;
+        float closestDistanceSqr = int.MaxValue;
+        float distSqr;
+        if (!gameOver)
+        {
+            for (int i = 0; i < trashCans.Length; i++)
+            {
+                if (fullTrashCans[i])
+                    continue;
+                distSqr = Vector3.SqrMagnitude(currentPos - trashCans[i].position);
+                if(distSqr < closestDistanceSqr)
+                {
+                    closestDistanceSqr = distSqr;
+                    nextIndex = i;
+                }
+            }
+        }
+        return nextIndex; 
+    }
+
+    public int GetTrashOnGround()
+    {
+        return amountOfTrashOnGround;
+    }
+
+    public void AddTrashOnGround() {
+        amountOfTrashOnGround++;
+        ui.SetScore(amountOfTrashOnGround * garbageWeight);
+    }
+
+    public int[] GetTrashInTrashCans()
+    {
+        return amountOfTrashInTrashCan;
+    }
+
+    public void AddTrashInTrashCan(int index)
+    {
+        if(!gameOver && !fullTrashCans[index])
+        {
+            amountOfTrashInTrashCan[index]++;
+
+            ProgressBar bar = trashCans[index].gameObject.GetComponentsInChildren<ProgressBar>()[0];
+            bar.CurrentValue = amountOfTrashInTrashCan[index];
+
+            // Check if trash can model needs to change.
+            SwitchTrashCanModel(index);
+            // This trash can is now full!
+            if (amountOfTrashInTrashCan[index] >= maxTrashAmount)
+            {
+                Debug.Log("Nr " + index + " is full!");
+                fullTrashCans[index] = true;
+                amountOfFullTrashCans++;
+                // Check if all trash cans are full. 
+                if(amountOfFullTrashCans >= fullTrashCans.Length)
+                    EndGame();
+                else
+                    // Recalculate the closest trash cans, not including the full ones. 
+                    GetClosestTrashCans();
+            }
+        }
+    }
+
+    /**
+     * Check if trash can model should be changed and then change it.
+     */
+    private void SwitchTrashCanModel(int trashIndex)
+    {
+        // This is the index of the trash can model that is currently active
+        int i = currentTrashCanModel[trashIndex];
+        if (i < trashCanThresholds.Length && amountOfTrashInTrashCan[trashIndex] == trashCanThresholds[i])
+        {
+            trashCans[trashIndex].GetChild(i).gameObject.SetActive(false);
+            trashCans[trashIndex].GetChild(i+1).gameObject.SetActive(true);
+            currentTrashCanModel[trashIndex] = i + 1;
+        }
+    }
+
+    public void Stop()
+    {
+        gameOver = true;
+        StopAllCoroutines();
     }
 
 }
