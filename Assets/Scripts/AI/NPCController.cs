@@ -15,7 +15,7 @@ public class NPCController : MonoBehaviour
     [SerializeField]
     internal GameObject animatedTrash;
     [SerializeField]
-    private float trashAcceleration = 10f;
+    private float trashAcceleration = 5f;
     [SerializeField]
     private GameObject[] allCharacters;
 
@@ -29,6 +29,7 @@ public class NPCController : MonoBehaviour
     private bool hasTrash = true;
     private bool hasReached = false;
     private bool isGoingHome = false;
+    private bool isHit = false;
     private int trashCanIndex;
     private AudioSource[] audioSources;
     public AudioClip[] npcScreamClips;
@@ -97,15 +98,16 @@ public class NPCController : MonoBehaviour
 
     public void HitNpc()
     {
-        if (!isGoingHome && !npcManager.gameOver)
+        if (!isHit && !npcManager.gameOver)
         {
-            animator.SetTrigger("Hit");
+            isHit = true;
             DropTrash();
         }
 
-        if(!audioSources[0].isPlaying && !npcManager.gameOver)
+        if (!audioSources[0].isPlaying && !npcManager.gameOver)
         {
             audioSources[0].Play();
+            animator.SetTrigger("Hit");
         }
     }
 
@@ -139,7 +141,7 @@ public class NPCController : MonoBehaviour
             flyingTrash.GetComponent<Collider>().enabled = true;
             trash_rb = flyingTrash.GetComponent<Rigidbody>();
             trash_rb.isKinematic = false;
-            trash_rb.AddForce(new Vector3(0, trashAcceleration, 0), ForceMode.VelocityChange);
+            trash_rb.AddForce(new Vector3(Random.Range(-0.3f, 0.3f) * trashAcceleration, trashAcceleration, Random.Range(-0.3f, 0.3f) * trashAcceleration), ForceMode.VelocityChange);
             trash_rb.AddTorque(new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * trashAcceleration, ForceMode.VelocityChange);
             flyingTrash.GetComponent<TrashController>().Begin();
         }

@@ -18,15 +18,19 @@ public class NPCManager : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    private GameObject npcPrefab;
-     
+    [SerializeField] private GameObject npcPrefab;
+    [SerializeField] private UI ui;
+    [SerializeField] private AudioManager audio;
+    [SerializeField] private int garbageWeight;
+    [SerializeField] private int maxTrashAmount = 10;
+
+
     internal Transform parentObject;
     private Transform[] spawnPoints;
     internal Transform[] trashCans;
     internal bool[] fullTrashCans;
     // Switch trash can model after each value on this array.
-    private int[] trashCanThresholds = { 7, 15, maxTrashAmount};
+    private int[] trashCanThresholds;
     // For each trash can, hold the index of the current trash can model, this is the index if the child object that is active.
     private int[] currentTrashCanModel;
     private int amountOfFullTrashCans = 0;
@@ -38,7 +42,6 @@ public class NPCManager : MonoBehaviour
     private int amountOfTrashOnGround = 0;
     private int[] amountOfTrashInTrashCan;
     internal bool gameOver = false;
-    private const int maxTrashAmount = 20;
 
     public void SetUp(Transform[] spawnPoints, Transform[] trashCans, Transform parentObject)
     {
@@ -56,6 +59,13 @@ public class NPCManager : MonoBehaviour
             currentTrashCanModel = new int[trashCans.Length];
             GetClosestTrashCans();
             StartCoroutine(SpawnWaves());
+
+            trashCanThresholds = new int[]{ maxTrashAmount / 4, maxTrashAmount / 2, 3 * maxTrashAmount / 4};
+            foreach (Transform trashcan in this.trashCans)
+            {
+                ProgressBar bar = trashcan.gameObject.GetComponentsInChildren<ProgressBar>()[0];
+                bar.MaxValue = maxTrashAmount;
+            }
         }
     }
 
@@ -104,6 +114,8 @@ public class NPCManager : MonoBehaviour
     {
         gameOver = true;
         StopAllCoroutines();
+        ui.DisplayGameOver();
+        audio.GameOver();
     }
 
     private void GetClosestTrashCans()
@@ -160,7 +172,6 @@ public class NPCManager : MonoBehaviour
                     closestDistanceSqr = distSqr;
                     nextIndex = i;
                 }
-                    
             }
         }
         return nextIndex; 
@@ -173,6 +184,7 @@ public class NPCManager : MonoBehaviour
 
     public void AddTrashOnGround() {
         amountOfTrashOnGround++;
+        ui.SetScore(amountOfTrashOnGround * garbageWeight);
     }
 
     public int[] GetTrashInTrashCans()
@@ -185,7 +197,9 @@ public class NPCManager : MonoBehaviour
         if(!gameOver && !fullTrashCans[index])
         {
             amountOfTrashInTrashCan[index]++;
-            //TODO: till Tom, anropa funtion här!
+
+            ProgressBar bar = trashCans[index].gameObject.GetComponentsInChildren<ProgressBar>()[0];
+            bar.CurrentValue = amountOfTrashInTrashCan[index];
 
             // Check if trash can model needs to change.
             SwitchTrashCanModel(index);

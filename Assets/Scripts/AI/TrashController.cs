@@ -50,7 +50,7 @@ public class TrashController : MonoBehaviour
         Vector3 startPos_bag = trashBagPrefab.transform.localPosition;    
         Vector3 endPos_bag = new Vector3(trashBagPrefab.transform.localPosition.x, -1, trashBagPrefab.transform.localPosition.z);
         Vector3 startPos_pile = transform.localPosition;
-        Vector3 endPos_pile = transform.localPosition = new Vector3(transform.localPosition.x, 0, transform.localPosition.z);
+        Vector3 endPos_pile = transform.localPosition = new Vector3(transform.localPosition.x, 0.5f, transform.localPosition.z);
         // Creates the transition between the trash bad and the pile of trash
         while (t < switchTransitionTime)
         {

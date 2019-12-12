@@ -44,7 +44,7 @@ public class ProgressBar : MonoBehaviour
     private void Awake() {
         slider = gameObject.GetComponent<UnityEngine.UI.Slider>();
         currentValue = 0;
-        maxValue = 100;
+        maxValue = 20;
     }
 
     private void Update() {
