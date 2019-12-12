@@ -98,15 +98,6 @@ public class MapCreator : MonoBehaviour
         CreateCloudsInSquare(points[0] - new Vector3(20, 0, 20), points[2] + new Vector3(20, 0, 20), 15, parent);
 
 
-        Vector3[] trash_positions = new Vector3[] {
-            new Vector3(-8f, 0f, 10f),
-            new Vector3(12f, 0f, 13f),
-            new Vector3(-11f, 0f, -10f),
-            new Vector3(18f, 0f, -16f)
-        };
-        //Magnus Kommentera bort den här raden
-        CreateMapTrashCans(trash_positions, parent);
-
     }
 
     //Använd den här funktionen för att skapa trashcans, måste kommentera bort raden längre upp 
@@ -133,7 +124,7 @@ public class MapCreator : MonoBehaviour
     {
 
 
-        for (int i = 0; i < trashCans.Length; i++)
+        for (int i = 0; i < trashcan_positions.Length; i++)
         {
             GameObject trashCan = Instantiate(trashCans[0], parent);
             trashCan.transform.localPosition = trashcan_positions[i];
