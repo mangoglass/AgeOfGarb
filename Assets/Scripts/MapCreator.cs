@@ -122,8 +122,6 @@ public class MapCreator : MonoBehaviour
     //TODO: Rodrigo & Natalie, ni kanske vill utveckla denna funtion. Den tar just nu bara in en papperskorg.
     private void CreateTrashCans(Vector3[] trashcan_positions, Transform parent)
     {
-
-
         for (int i = 0; i < trashcan_positions.Length; i++)
         {
             GameObject trashCan = Instantiate(trashCans[0], parent);
@@ -147,6 +145,7 @@ public class MapCreator : MonoBehaviour
             ground.GetComponent<MeshCollider>().sharedMesh = mesh;
         }
     }
+    
     void CreateRoad(Vector3[] points, GameObject parent)
     {
         GameObject straight_tile = roadTiles[0];
