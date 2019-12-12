@@ -112,6 +112,7 @@ MonoBehaviour:
   decal: {fileID: 2037422687595662364, guid: 7c27384ecd742644693948554ffb8d65, type: 3}
   rayLength: 0.1
   gravityMultiplier: 0.06
+  decalDespawnTime: 10
 --- !u!135 &-7801931694841598468
 SphereCollider:
   m_ObjectHideFlags: 0
