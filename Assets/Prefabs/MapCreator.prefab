@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3053944640912417947
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3053944640912417946}
+  - component: {fileID: 3053944640912417925}
+  - component: {fileID: 1760751848}
+  m_Layer: 0
+  m_Name: MapCreator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3053944640912417946
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3053944640912417947}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3053944640912417925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3053944640912417947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f586bfd3b557748bd94d6dbf386a093a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roadTiles:
+  - {fileID: 1714483912317625383, guid: 1f4cee77519424cd2976975afb0b267c, type: 3}
+  - {fileID: 5537837063295658111, guid: ad1c5fae30dd340b9baa8e906348d302, type: 3}
+  buildings:
+  - {fileID: 4370698393190223691, guid: ee5e7c3fd2950455897f6a2d1832efe0, type: 3}
+  - {fileID: 6203741126335583443, guid: d24520cba3cbf46f78b370d123723642, type: 3}
+  - {fileID: 3751819278443266986, guid: 22b2e2118657b4114b5176449aded784, type: 3}
+  trees:
+  - {fileID: 129346, guid: c50789636e1fc5c4b8a37e2700e4a3c1, type: 3}
+  - {fileID: 189882, guid: ee6af68a3d2c1864ebc6cfc3be82d851, type: 3}
+  - {fileID: 129346, guid: c50789636e1fc5c4b8a37e2700e4a3c1, type: 3}
+  gateLight: {fileID: 1577719089577292062, guid: 1dab9a3162c1d4f0694fa008a6b7bea9,
+    type: 3}
+  grassPrefab: {fileID: 2084210119391314664, guid: ecc6d9e06c954436cb8797be002a4661,
+    type: 3}
+  groundPrefab: {fileID: 8496638967422118110, guid: 50926347cc61e7141a363a831f5eca8b,
+    type: 3}
+  trashCans:
+  - {fileID: 6953623313018840062, guid: 6c444e36c22814a2a8c8676451d3dae9, type: 3}
+  - {fileID: 6953623313018840062, guid: 6c444e36c22814a2a8c8676451d3dae9, type: 3}
+  - {fileID: 6953623313018840062, guid: 6c444e36c22814a2a8c8676451d3dae9, type: 3}
+  - {fileID: 6953623313018840062, guid: 6c444e36c22814a2a8c8676451d3dae9, type: 3}
+  surfacePrefab: {fileID: 1750216831512920589, guid: f7aa2c40150eac04d806c2258ebd2036,
+    type: 3}
+  spawnProbability: 0.5
+  clouds:
+  - {fileID: 8345094602604853235, guid: 545f729c3c9bd403b9580e7c3fd8d0dd, type: 3}
+  - {fileID: 3491519146889806703, guid: 895ffaaa8b0244d4d94584b7a6ee0a3b, type: 3}
+  - {fileID: 6665721152366941068, guid: 264f77ab90c9f4beb8254d591844439d, type: 3}
+--- !u!114 &1760751848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3053944640912417947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e20d8a911b6d2498da7ce9bb3f8b8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcPrefab: {fileID: 2796980985458859628, guid: 7c8a73f95c5161a44b63e27bc4f21411,
+    type: 3}

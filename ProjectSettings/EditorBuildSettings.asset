@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HelloWorld.unity
     guid: 480ea09ac33bf4047b1e937861f5eafe
+  - enabled: 0
+    path: Assets/Scenes/navmesh_test.unity
+    guid: fbc5727742154e142841c5f73f5ee851
   m_configObjects: {}
