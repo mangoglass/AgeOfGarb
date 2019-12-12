@@ -76,9 +76,12 @@ public class NPCController : MonoBehaviour
 
     public void HitNpc()
     {
-        audioSources[0].Play();
-        if(!isGoingHome)
+        if(!audioSources[0].isPlaying)
+            audioSources[0].Play();
+
+        if (!isGoingHome)
         {
+            
             DropTrash();
             GoHome();
         }
