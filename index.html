@@ -1,0 +1,381 @@
+<!--
+
+	Document   : HMTL
+	Created on : 2019-oct-27, 20:22
+	Author     : Tom Axblad
+
+-->
+
+
+<!DOCTYPE html>
+<html lang="sv">
+
+	<head>
+		<title>Age Of GarbPage</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1" user-scalable=no>
+		<link rel="stylesheet" href="css/style.css" />
+		<link href="https://fonts.googleapis.com/css?family=Martel+Sans:200|Nunito:700|Sigmar+One&display=swap" rel="stylesheet"> 
+		<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+	</head>
+
+
+	<body>
+		<div id="container">
+			<div id="navbar">
+				<div class="thinner">
+					<div class="navElem">
+						<a href="#container">
+							<div id="logoCont">
+								<img src="img/logo2.png"/>
+							</div>
+						</a>
+					</div>
+					<div class="navElem navText">
+						<a href="#descriptionBlock"><h6>About Age Of Garb</h6></a>
+					</div>
+					<div class="navElem navText">
+						<a href="#aboutUsBlock"><h6>About us</h6></a>
+					</div>
+					<div class="navElem navText">
+						<a href="#mediaBlock"><h6>Media</h6></a>
+					</div>
+					<div class="navElem navText">
+						<a href="#feedbackBlock"><h6>Feedback</h6></a>
+					</div>
+					<div id="lines" class="navElem">
+						<a><img src="img/icons/3Line.png"/></a>
+					</div>
+				</div>
+			</div>
+			<div id="dropdown">
+				<div class="dropText">
+					<a href="#descriptionBlock"><h6>About Age Of Garb</h6></a>
+				</div>
+				<div class="dropText">
+					<a href="#aboutUsBlock"><h6>About us</h6></a>
+				</div>
+				<div class="dropText">
+					<a href="#mediaBlock"><h6>Media</h6></a>
+				</div>
+				<div class="dropText">
+					<a href="#feedbackBlock"><h6>Feedback</h6></a>
+				</div>
+			</div>
+			<div id="backgroundWrapper">
+				
+				<div id="imageContainer">
+					<div id="bigText">
+						<img id="logo" src="img/logo.png"/>
+					</div>
+					<div id="textButton">
+						<a href="https://github.com/mangoglass/AgeOfGarb">
+							<div id="webshopCont">
+								Github Repo
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div id="colorDivider">
+				Welcome to the Age Of Garb Project Webpage!
+			</div>
+
+			<div id="contentContainer"> 
+				<div class="contentBlock" id="descriptionBlock"> 
+					<h1> ABOUT Age Of Garb </h1>
+					<h2>Goals and Motivation</h2>
+					In this project, we wanted to achieve a well functioning and fun AR game that let 
+					players take control over a drone using their phone to interact with an 
+					environment that was placeable on a surface. The goal was to create a playable 
+					field that would not be limited to a small surface such as a table or a set 
+					range on the ground. Instead we wanted the player to be able to define the size 
+					of the scene before they played in order to truly utilize the most of the 
+					potential available open space for the player. We spent some time to refine 
+					this idea during the development process and ended up with the final project. 
+						
+					<h2>Technologies</h2>
+					Unity <br>
+					AR-Core <br>
+					GitHub
+					
+					<h2>Contributions</h2>
+					The project contributes graphics wise by displaying a resizeable playing 
+					surface on a selectable plane. The player scans their environment and then 
+					select exactly where the playing area should be located. To avoid scaling down 
+					the area in unity which would make some implementation code break, the 
+					placeable play area is actually never resized at all. Instead a script is placed 
+					on the camera which makes it look like the placeable area is really small, 
+					when in reality, the camera is placed really far away. 
+					<br><br>
+					The advanced interaction contribution for this project comes in two parts. 
+					Firstly, you can control the playable drone character by actually moving the 
+					camera though physical space. By simple moving closer to the play area, 
+					the playable character is moved closer as well, which makes the players mobile 
+					screen a first person view perspective.<br>
+					The second interaction contribution is the trash-can ficons. When 
+					these trash cans are scanned by the mobile phone, the player manually place 
+					them where the physical ficon is placed. This allows the player to configure 
+					the placements of the trash cans which affects how the game is played.
+					
+					<h2>Challenges and Obstacles</h2>
+					We face multiple challenges with this project that we overcame in the end. One 
+					big challenge was that the game code broke down when using small scales for the 
+					play area. Which was significant since the scaling of the playable area is a 
+					main goal for this project. In the end this issue was solved by placing a script
+					on the camera which makes it look like the placeable area is really small, 
+					when in reality, the camera is placed really far away. 
+							
+					<h2>Related Work</h2>
+						- Blender:<br><br>
+						
+						- <b><a href="https://ieeexplore.ieee.org/abstract/document/4557954/">Toward next-gen mobile AR games</a></b> <br>
+						Broll, Wolfgang, Irma Lindt, Iris Herbst, Jan Ohlenburg, Anne-Kathrin Braun, and Richard Wetzel. <br>
+						2008 <br><br>
+						
+						
+						- <b><a href="https://link.springer.com/chapter/10.1007/978-3-030-19501-4_36">Capabilities of ARCore and ARKit Platforms for AR/VR Applications.</a></b> <br>
+						Nowacki, P. and Woda<br>
+						2019<br><br>
+
+				
+					<h2>Lessons learned</h2>
+					A lot of things were learned by the team for this project. One such thing was 
+					that sometimes it is necessary to radically the idea of the project in order 
+					to finish it in time. This was something we had to do multiple times though the
+					development cycle of the project. We also learned that a lot of work is done 
+					quickly if you meet up as a group and work together in the same place.
+					A shared work space facilitates communication greatly and helps with the 
+					planning and development of most projects. Another thing we learned is that it 
+					is fine to change something if it's not working, even if you think it is too late.
+					For example, during the open house event, we quickly realized that the table 
+					set-up that we used was not good for showing off the main features of the game.
+					Therefore we changed it on the spot, and it worked out fine.
+				</div>
+				<div class="contentBlock" id="aboutUsBlock"> 
+					<h1> ABOUT US </h1>
+					<div class="personblock"> 
+						<div class="personImage"> 
+							<img src="img/natalie.png">
+						</div>
+						<div class="personText"> 
+							<h2>Natalie Axelsson</h2>
+							My main responsibilities were 3D-modeling and 3D-printing. For example, 
+							I created all models related to the trash, and I 3D-printed trash cans 
+							that can be scanned in the game. I also worked on procedural 
+							genereation of the levels, mostly on the tree placement and the 
+							randomized appearance of the trash piles.
+						</div>
+					</div>
+					<div class="personblock"> 
+						<div class="personImage altimage"> 
+							<img src="img/rodrigo.png">
+						</div>
+						<div class="personText rightText"> 
+							<h2>Rodrigo Retuerto</h2>
+							 I was responsible for the procedural generation within this project. 
+							 This consists of placement and properties of the main buildings and 
+							 all the objects( trees, floor, lights, roads, etc) within the scene. 
+							 This was done using procedural generation so that the user can have 
+							 a new level each time making the experience a bit more fun. Because 
+							 the generated level is the centre between our components(AR, AI, etc) 
+							 I also helped create the bindings and put them together.
+						</div>
+						<div class="personImage normalimage"> 
+							<img src="img/rodrigo.png">
+						</div>
+					</div>
+					<div class="personblock"> 
+						<div class="personImage"> 
+							<img src="img/alvaro.png">
+						</div>
+						<div class="personText"> 
+							<h2>Alvaro Ortega Mattsson</h2>
+							I was responsible for the animations and the AI of the NPC's. 
+							This includes, adding already existing animations as well as altering 
+							some animations, e.g. when they walk with the trash bag over their 
+							shoulder and when they throw it in the trash can. I used Unity's 
+							animation system Mechanim to control the different states of the 
+							animations as well as some of the AI behavior. A large part of the 
+							AI implementation was the path finding of the NPC for when they 
+							where walking towards the trash cans and running back home, in which 
+							I used Unity's NavMesh functionality. I also worked on spawning the 
+							NPC's at random locations and using random character meshes among 
+							other things.
+						</div>
+					</div>
+					<div class="personblock">
+						<div class="personImage altimage"> 
+							<img src="img/tom.png">
+						</div>
+						<div class="personText rightText"> 
+							<h2>Tom Axblad</h2>
+							I was the project leader for this project. Which means that I delegated 
+							all work for all the other team members. I was also responsible for the 
+							project repository and all issues, comments, pull requests, version 
+							control, and project planning. <br>
+							When issues arrived when merging the work from multiple group members, 
+							it was my job to tweak them to make sure that stuff was integrated 
+							correctly.<br>
+							I also made the website you are looking at right now!
+						</div>
+						<div class="personImage normalimage"> 
+							<img src="img/tom.png">
+						</div>
+					</div>
+					<div class="personblock"> 
+						<div class="personImage"> 
+							<img src="img/edin.png">
+						</div>
+						<div class="personText"> 
+							<h2>Edin Suta</h2>
+							I was a general gameplay programmer in this project, responsible for 
+							various gameplay systems such as the shooting mechanics, projectile 
+							logic, a paint splatter system (decal system optimized for mobile 
+							platforms, since Unity doesn't support decals for non-HDRP projects)  
+							and some minor UI visuals.<br>
+							I was also responsible for all of the music and sound effects in the 
+							game. I programmed an audio manager for the game which would manage 
+							all of the audio collectively and make it easy to tweak and customize 
+							each audio effect or soundtrack that would be triggered. 
+							This audio manager was easy to import into any other script in order to 
+							easily instance and trigger any sound effects from any piece of game 
+							logic (and stop or pause instances when they are no longer needed).
+						</div>
+					</div>
+					<div class="personblock"> 
+						<div class="personImage altimage"> 
+							<img src="img/magnus.png">
+						</div>
+						<div class="personText rightText"> 
+							<h2>Magnus Lundh Haaland</h2>
+							I am responsible for the AR implementation and developed most of the AR 
+							related parts of the project. Some examples include: the plane 
+							detection and room scaling, the image tracking for recognizing the 3d 
+							printed trash cans, and that the digital objects cast shadows on the 
+							ground. I have also worked on parts of the UI and game state system.
+						</div>
+						<div class="personImage normalimage"> 
+							<img src="img/magnus.png">
+						</div>
+					</div>
+				</div>
+				
+				<div class="contentBlock" id="mediaBlock"> 
+					<h1> MEDIA </h1>
+					<div class="videoBlock">
+						<div class="videoContainer">
+							<iframe src="https://www.youtube.com/embed/m9N0O8JDXjg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						</div>
+						
+						<div class="videoTextContainer">
+							<h2>MAKING OF</h2>
+							
+						</div>
+					</div>
+					
+					<div class="videoBlock">
+						<div class="videoContainer">
+							<iframe src="https://www.youtube.com/embed/dAgZcE26dFM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						</div>
+						
+						<div class="videoTextContainer">
+							<h2>DEMO REEL</h2>
+							
+						</div>
+					</div>
+					
+					<div class="imageBlock"> 
+						<div class="videoContainer"> 
+							
+						</div>
+						<div class="gallery"> 
+							
+						</div>
+					</div>
+				
+					<h1>  </h1>
+					
+					<div class="imgRow">
+						<img onclick="show(this.src, this.alt)" src="img/event/IMG_2034.JPEG" alt="">
+						<img onclick="show(this.src, this.alt)" src="img/event/IMG_2035.JPEG" alt="">
+						<img onclick="show(this.src, this.alt)" src="img/event/IMG_2036.JPEG" alt="">
+						<img onclick="show(this.src, this.alt)" src="img/event/IMG_2037.JPEG" alt="">
+						<img onclick="show(this.src, this.alt)" src="img/event/IMG_2038.JPEG" alt="">
+					</div>
+					
+					<div class="imgRow">
+						<img onclick="show(this.src, this.alt)" src="img/event/IMG_2040.JPG" alt="">
+						<img onclick="show(this.src, this.alt)" src="img/event/IMG_2041.JPG" alt="">
+						<img onclick="show(this.src, this.alt)" src="img/event/IMG_2042.JPG" alt="">
+						<img onclick="show(this.src, this.alt)" src="img/event/IMG_2043.JPEG" alt="">
+						<img onclick="show(this.src, this.alt)" src="img/event/IMG_2044.JPEG" alt="">
+					</div>
+					
+					<div class="imgRow">
+						<img onclick="show(this.src, this.alt)" src="img/event/IMG_2046.JPEG" alt="">
+						<img onclick="show(this.src, this.alt)" src="img/event/IMG_2047.JPEG" alt="">
+						<img onclick="show(this.src, this.alt)" src="img/event/IMG_2048.JPEG" alt="">
+						<img onclick="show(this.src, this.alt)" src="img/event/IMG_2051.JPEG" alt="">
+						<img onclick="show(this.src, this.alt)" src="img/event/IMG_2052.JPEG" alt="">
+					</div>
+					
+					<div class="imgRow">
+						<img onclick="show(this.src, this.alt)" src="img/event/IMG_2053.JPEG" alt="">
+						<img onclick="show(this.src, this.alt)" src="img/event/IMG_2054.JPEG" alt="">
+					</div>
+					
+					<video onclick="show(this.src, this.alt)" width="480" height="320" controls="controls"><source src="img/event/IMG_2039.MP4" type="video/mp4"></video>
+					<video onclick="show(this.src, this.alt)" width="480" height="320" controls="controls"><source src="img/event/IMG_2045.MP4" type="video/mp4"></video>
+					<video onclick="show(this.src, this.alt)" width="480" height="320" controls="controls"><source src="img/event/IMG_2049.MP4" type="video/mp4"></video>
+
+					
+					
+					<!-- The Modal -->
+					<div id="imgModal" class="modal">
+
+					  <div class="modal-image-container">
+						<div id="modal-close">&times;</div>
+						
+						<img class="modal-content" id="modal-image">
+
+						<div id="modal-caption"></div>
+					  </div>
+
+					  
+					</div>
+					
+				</div>
+				
+				<div class="contentBlock" id="feedbackBlock"> 
+					<h1> FEEDBACK </h1>
+					<div class="feedback"> 
+						"It's a fun game with a pretty unique theme."
+					</div>
+					<div class="feedback"> 
+						"It would be cool if the player could drop water balloons with paint!"
+					</div>
+					<div class="feedback"> 
+						"Yeah it's fun!"
+					</div>
+				</div>
+			</div>
+
+			<div id="footer">
+				<div class="tripple">
+				Made by Tom Axblad © 2019
+				</div>
+				<div class="tripple">
+					<div> Top / About Age Of Garb / About us / Media / Gallery / Feedback </div>
+				</div>
+				<div class="tripple">
+					<img id="footerLogo" src="img/logo.png"/>
+				</div>
+			</div>
+
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="script.js"></script>
+	</body>
+</html>
